@@ -1,34 +1,38 @@
 # @blencm/ui
 
-**Accessible React components on Radix UI and Tailwind CSS.**
+**Accessible, reusable React components built with Radix UI and Tailwind CSS.**
 
-Install the package, import a component, and start. No copy-paste into `src/components`.
+Install the package, import the components you need, and start building.
+No copying components into `src/components`, no manual setup, and no duplicated UI code across projects.
 
-[**Components**](https://ui.blencm.com) · [npm](https://www.npmjs.com/package/@blencm/ui) · [GitHub](https://github.com/blencm/blencm-ui)
+## Documentation & Live Components
+
+**Explore all components, live examples, and copy the demo code:**
+
+View components [here](https://ui.blencm.com).
 
 ---
 
 ## Installation
 
+Install the package with your preferred package manager:
+
 ```bash
 pnpm add @blencm/ui
 ```
 
-```bash
-npm install @blencm/ui
-```
+React and React DOM are peer dependencies:
 
-```bash
-yarn add @blencm/ui
+```text
+react >=17 <21
+react-dom >=17 <21
 ```
-
-React and React DOM are peer dependencies >=17.
 
 ---
 
-## Usage
+## Quick Start
 
-Styles, theme tokens, and the CSS reset load with the package.
+Import components directly from the package:
 
 ```tsx
 import { Button } from '@blencm/ui';
@@ -43,113 +47,82 @@ export function Example() {
 }
 ```
 
-If your bundler does not follow CSS side-effect imports:
+That's it. Components, theme tokens, base styles, and the CSS reset are included with the package.
+
+---
+
+## Styles
+
+In most setups, styles are loaded automatically.
+
+If your bundler does not process CSS side-effect imports, import the stylesheet manually:
 
 ```tsx
 import '@blencm/ui/style.css';
 ```
 
----
+### Dark Mode
 
-## Dark mode
-
-The theme follows a `dark` class on an ancestor, usually `<html>`.
+Dark mode is controlled by adding the `dark` class to an ancestor element, typically `<html>`:
 
 ```html
 <html class="dark">
-  <body><!-- app --></body>
-</html>
 ```
 
-With `next-themes`, set `attribute="class"`.
+### Theme Customization
 
----
+Customize the design system by overriding CSS variables in your application.
 
-## Theming
-
-Override CSS variables in your app:
+For example:
 
 ```css
 :root {
-  --primary: oklch(0.205 0 0);
-  --primary-foreground: oklch(0.985 0 0);
-  --destructive: oklch(64.12% 0.209 16.22);
-  --radius: 0.75rem;
+  --primary: 160 84% 39%;
+  --radius: 0.5rem;
 }
 ```
 
----
-
-## Forms
-
-React Hook Form and Zod work out of the box.
-
-```tsx
-import { zodResolver } from '@hookform/resolvers/zod';
-import { useForm } from 'react-hook-form';
-import { z } from 'zod';
-import { Button, Form, FormCheckbox, FormField, FormSelect } from '@blencm/ui';
-
-const schema = z.object({
-  name: z.string().min(2, 'Minimum 2 characters'),
-  role: z.enum(['owner', 'editor', 'viewer']),
-  accepted: z.boolean().refine(Boolean, 'You must accept the terms'),
-});
-
-export function CreateAccountForm() {
-  const form = useForm({
-    resolver: zodResolver(schema),
-    defaultValues: { name: '', role: 'viewer', accepted: false },
-  });
-
-  return (
-    <Form methods={form} onSubmit={console.log} formProps={{ className: 'space-y-4' }}>
-      <FormField control={form.control} name="name" label="Name" requiredLabel />
-      <FormSelect
-        control={form.control}
-        name="role"
-        label="Role"
-        items={[
-          { label: 'Owner', value: 'owner' },
-          { label: 'Editor', value: 'editor' },
-          { label: 'Viewer', value: 'viewer' },
-        ]}
-      />
-      <FormCheckbox control={form.control} name="accepted" label="I accept the terms" />
-      <Button type="submit" className="w-full">
-        Create account
-      </Button>
-    </Form>
-  );
-}
-```
+This allows you to adapt colors, border radius, and other theme tokens without modifying the library itself.
 
 ---
 
-## Components
+## Why @blencm/ui?
 
-Browse live previews and source at **[ui.blencm.com](https://ui.blencm.com)**.
+`@blencm/ui` is designed for teams and developers who want a consistent component system without maintaining a local copy of every UI component.
 
-**Primitives**  
-`Accordion` · `Alert` · `AlertDialog` · `AspectRatio` · `Avatar` · `Badge` · `Breadcrumb` · `Button` · `Calendar` · `Card` · `Carousel` · `Checkbox` · `Collapsible` · `Command` · `ContextMenu` · `Dialog` · `Drawer` · `DropdownMenu` · `HoverCard` · `IconButton` · `Input` · `InputOtp` · `Label` · `Menubar` · `Modal` · `NavigationMenu` · `Pagination` · `Popover` · `Progress` · `RadioGroup` · `Resizable` · `ScrollArea` · `ScrollView` · `Select` · `Separator` · `Sheet` · `Skeleton` · `Slider` · `Sonner` · `Switch` · `Table` · `Tabs` · `Textarea` · `Toast` · `Toaster` · `Toggle` · `ToggleGroup` · `Tooltip`
-
-**Forms**  
-`Form` · `FormField` · `FormSelect` · `FormCheckbox` · `FormTextarea` · `FormDate` · `FormTime` · `FormItem` · `FormControl` · `FormLabel` · `FormDescription` · `FormMessage` · `UiInput` · `UiSelect` · `UiCheckbox` · `UiDate` · `UiTime` · `UiTextarea`
-
-**Composites**  
-`AlertModal` · `Breadcrumbs` · `DataTable` · `DataTableSkeleton` · `Dropzone` · `FileUpload` · `Heading` · `PageHead` · `PaginationSection` · `SearchInput` · `SearchableSelect`
-
-**Utilities**  
-`cn` · `toast` · `useToast` · `Icons` · `useSidebar`
+* **Accessible by default** — built on top of Radix UI primitives.
+* **Reusable** — install once and use across multiple React projects.
+* **Tailwind CSS friendly** — designed to work naturally with utility-first styling.
+* **Themeable** — customize the appearance through CSS variables.
+* **Dark mode ready** — supports class-based dark mode.
+* **TypeScript friendly** — designed for modern React and TypeScript applications.
+* **No copy-paste workflow** — components are imported directly from the package.
 
 ---
 
-## Sponsors
+## Sponsor
 
-**[MultiBase Studio](https://multibasestudio.com/)** is a desktop client for SQL, NoSQL, and cloud databases. Connect PostgreSQL, MySQL, MongoDB, Redis, SQLite, and 40+ engines from one app — query with autocomplete, explore schemas, edit data, and run backups without switching tools.
+### MultiBase Studio
+
+**[MultiBase Studio](https://multibasestudio.com/)** is a cross-platform desktop database client for **SQL, NoSQL, and cloud databases**.
+
+Connect to PostgreSQL, MySQL, MongoDB, Redis, SQLite, and **40+ database engines** from a single application.
+
+With MultiBase Studio you can:
+
+* Write queries with autocomplete
+* Explore databases, tables, collections, and schemas
+* Browse and edit data
+* Manage multiple database connections
+* Run backups
+* Work across different database engines without switching tools
+
+Available for **Windows, macOS, and Linux**.
+
+The **[free plan](https://multibasestudio.com/)** does not expire and does not require a credit card.
 
 ---
 
 ## License
 
-[MIT](./LICENSE)
+Licensed under the [MIT License](./LICENSE).

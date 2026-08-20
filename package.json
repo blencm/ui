@@ -74,11 +74,11 @@
   ],
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/blencm/blencm-ui.git"
+    "url": "git+https://github.com/blencm/ui.git"
   },
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/blencm/blencm-ui/issues"
+    "url": "https://github.com/blencm/ui/issues"
   },
   "homepage": "https://ui.blencm.com",
   "scripts": {
