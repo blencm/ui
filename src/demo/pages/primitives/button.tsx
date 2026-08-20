@@ -1,7 +1,15 @@
 import { Button } from "@/components/Button/button";
+import { useCopy } from "../../i18n/copy";
+import { useLocale } from "../../i18n/locale";
 import { DemoPage, DemoPreview } from "../../layout/DemoPage";
 
-const variantsCode = `import { Button } from '@blencm/ui';
+export default function ButtonDemoPage() {
+  const { m } = useLocale();
+  const t = useCopy({
+    en: { delete: "Delete", loading: "Loading" },
+    es: { delete: "Eliminar", loading: "Cargando" },
+  });
+  const variantsCode = `import { Button } from '@blencm/ui';
 
 export function ButtonDemo() {
   return (
@@ -9,16 +17,15 @@ export function ButtonDemo() {
       <Button>Default</Button>
       <Button variant="outline">Outline</Button>
       <Button variant="secondary">Secondary</Button>
-      <Button variant="destructive">Delete</Button>
+      <Button variant="destructive">${t.delete}</Button>
       <Button variant="ghost">Ghost</Button>
       <Button variant="soft">Soft</Button>
       <Button variant="gradient">Gradient</Button>
-      <Button loading>Loading</Button>
+      <Button loading>${t.loading}</Button>
     </div>
   );
 }`;
-
-const sizesCode = `import { Button } from '@blencm/ui';
+  const sizesCode = `import { Button } from '@blencm/ui';
 
 export function ButtonSizesDemo() {
   return (
@@ -32,23 +39,19 @@ export function ButtonSizesDemo() {
   );
 }`;
 
-export default function ButtonDemoPage() {
   return (
-    <DemoPage
-      title="Button"
-      description="Botón con variantes, tamaños y estado de carga."
-    >
-      <DemoPreview title="Variantes" className="flex flex-wrap gap-3" code={variantsCode}>
+    <DemoPage title="Button">
+      <DemoPreview title={m.variants} className="flex flex-wrap gap-3" code={variantsCode}>
         <Button>Default</Button>
         <Button variant="outline">Outline</Button>
         <Button variant="secondary">Secondary</Button>
-        <Button variant="destructive">Delete</Button>
+        <Button variant="destructive">{t.delete}</Button>
         <Button variant="ghost">Ghost</Button>
         <Button variant="soft">Soft</Button>
         <Button variant="gradient">Gradient</Button>
-        <Button loading>Loading</Button>
+        <Button loading>{t.loading}</Button>
       </DemoPreview>
-      <DemoPreview title="Tamaños" className="flex flex-wrap items-center gap-3" code={sizesCode}>
+      <DemoPreview title={m.sizes} className="flex flex-wrap items-center gap-3" code={sizesCode}>
         <Button size="xs">XS</Button>
         <Button size="sm">SM</Button>
         <Button size="default">Default</Button>

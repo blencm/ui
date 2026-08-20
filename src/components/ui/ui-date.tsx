@@ -201,7 +201,7 @@ function capitalize(value: string) {
 
 function UiDate({
   label,
-  placeholder = "Seleccione una fecha",
+  placeholder = "Select a date",
   value,
   defaultMonth,
   onChange,
@@ -582,7 +582,7 @@ function UiDate({
                 }),
                 "h-8 w-8 shrink-0 rounded-lg text-muted-foreground hover:text-foreground disabled:opacity-30",
               )}
-              aria-label="Mes anterior"
+              aria-label="Previous month"
             >
               <ChevronLeftIcon className="h-4 w-4" />
             </button>
@@ -594,7 +594,7 @@ function UiDate({
                 items={monthOptions}
                 disabled={Boolean(disabled)}
                 size="sm"
-                placeholder="Mes"
+                placeholder="Month"
                 selectClassName="space-y-0"
                 className={dateHeaderSelectTriggerClassName}
                 contentClassName={dateHeaderSelectContentClassName}
@@ -609,7 +609,7 @@ function UiDate({
                 items={yearOptions}
                 disabled={Boolean(disabled)}
                 size="sm"
-                placeholder="Año"
+                placeholder="Year"
                 selectClassName="space-y-0"
                 className={dateHeaderSelectTriggerClassName}
                 contentClassName={dateHeaderSelectContentClassName}
@@ -635,7 +635,7 @@ function UiDate({
                 }),
                 "h-8 w-8 shrink-0 rounded-lg text-muted-foreground hover:text-foreground disabled:opacity-30",
               )}
-              aria-label="Mes siguiente"
+              aria-label="Next month"
             >
               <ChevronRightIcon className="h-4 w-4" />
             </button>

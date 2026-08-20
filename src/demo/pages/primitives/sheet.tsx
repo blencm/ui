@@ -7,9 +7,24 @@ import {
   SheetTitle,
   SheetTrigger,
 } from "@/components/sheet";
+import { useCopy } from "../../i18n/copy";
 import { DemoPage, DemoPreview } from "../../layout/DemoPage";
 
-const code = `import {
+export default function SheetDemoPage() {
+  const t = useCopy({
+    en: {
+      open: "Open sheet",
+      title: "Settings",
+      description: "Change preferences from this panel.",
+    },
+    es: {
+      open: "Abrir sheet",
+      title: "Ajustes",
+      description: "Cambia las preferencias desde este panel.",
+    },
+  });
+
+  const code = `import {
   Button,
   Sheet,
   SheetContent,
@@ -23,32 +38,29 @@ export function SheetDemo() {
   return (
     <Sheet>
       <SheetTrigger asChild>
-        <Button variant="outline">Abrir sheet</Button>
+        <Button variant="outline">${t.open}</Button>
       </SheetTrigger>
       <SheetContent>
         <SheetHeader>
-          <SheetTitle>Ajustes</SheetTitle>
-          <SheetDescription>Cambia las preferencias desde este panel.</SheetDescription>
+          <SheetTitle>${t.title}</SheetTitle>
+          <SheetDescription>${t.description}</SheetDescription>
         </SheetHeader>
       </SheetContent>
     </Sheet>
   );
 }`;
 
-export default function SheetDemoPage() {
   return (
-    <DemoPage title="Sheet" description="Panel lateral sobre el contenido.">
+    <DemoPage title="Sheet">
       <DemoPreview code={code}>
         <Sheet>
           <SheetTrigger asChild>
-            <Button variant="outline">Abrir sheet</Button>
+            <Button variant="outline">{t.open}</Button>
           </SheetTrigger>
           <SheetContent>
             <SheetHeader>
-              <SheetTitle>Ajustes</SheetTitle>
-              <SheetDescription>
-                Cambia las preferencias desde este panel.
-              </SheetDescription>
+              <SheetTitle>{t.title}</SheetTitle>
+              <SheetDescription>{t.description}</SheetDescription>
             </SheetHeader>
           </SheetContent>
         </Sheet>

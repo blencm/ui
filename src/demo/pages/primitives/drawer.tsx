@@ -9,9 +9,25 @@ import {
   DrawerTitle,
   DrawerTrigger,
 } from "@/components/drawer";
+import { useCopy } from "../../i18n/copy";
 import { DemoPage, DemoPreview } from "../../layout/DemoPage";
 
-const code = `import {
+export default function DrawerDemoPage() {
+  const t = useCopy({
+    en: {
+      open: "Open drawer",
+      title: "Filters",
+      description: "Adjust the options and confirm.",
+      done: "Done",
+    },
+    es: {
+      open: "Abrir drawer",
+      title: "Filtros",
+      description: "Ajusta las opciones y confirma.",
+      done: "Listo",
+    },
+  });
+  const code = `import {
   Button,
   Drawer,
   DrawerClose,
@@ -26,15 +42,15 @@ export function DrawerDemo() {
   return (
     <Drawer>
       <DrawerTrigger asChild>
-        <Button variant="outline">Abrir drawer</Button>
+        <Button variant="outline">${t.open}</Button>
       </DrawerTrigger>
       <DrawerContent>
         <DrawerHeader>
-          <DrawerTitle>Filtros</DrawerTitle>
+          <DrawerTitle>${t.title}</DrawerTitle>
         </DrawerHeader>
         <DrawerFooter>
           <DrawerClose asChild>
-            <Button>Listo</Button>
+            <Button>${t.done}</Button>
           </DrawerClose>
         </DrawerFooter>
       </DrawerContent>
@@ -42,24 +58,21 @@ export function DrawerDemo() {
   );
 }`;
 
-export default function DrawerDemoPage() {
   return (
-    <DemoPage title="Drawer" description="Panel inferior basado en Vaul.">
+    <DemoPage title="Drawer">
       <DemoPreview code={code}>
         <Drawer>
           <DrawerTrigger asChild>
-            <Button variant="outline">Abrir drawer</Button>
+            <Button variant="outline">{t.open}</Button>
           </DrawerTrigger>
           <DrawerContent>
             <DrawerHeader>
-              <DrawerTitle>Filtros</DrawerTitle>
-              <DrawerDescription>
-                Ajusta las opciones y confirma.
-              </DrawerDescription>
+              <DrawerTitle>{t.title}</DrawerTitle>
+              <DrawerDescription>{t.description}</DrawerDescription>
             </DrawerHeader>
             <DrawerFooter>
               <DrawerClose asChild>
-                <Button>Listo</Button>
+                <Button>{t.done}</Button>
               </DrawerClose>
             </DrawerFooter>
           </DrawerContent>

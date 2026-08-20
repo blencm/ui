@@ -1,9 +1,26 @@
 import * as React from "react";
 
 import { UiDate } from "@/components/ui/ui-date";
+import { useCopy } from "../../i18n/copy";
+import { useDateFnsLocale } from "../../i18n/date-locale";
 import { DemoPage, DemoPreview } from "../../layout/DemoPage";
 
-const code = `import * as React from 'react';
+export default function UiDateDemoPage() {
+  const dateLocale = useDateFnsLocale();
+  const t = useCopy({
+    en: {
+      label: "Date",
+      placeholder: "Select a date",
+    },
+    es: {
+      label: "Fecha",
+      placeholder: "Seleccione una fecha",
+    },
+  });
+
+  const [date, setDate] = React.useState<Date | undefined>();
+
+  const code = `import * as React from 'react';
 import { UiDate } from '@blencm/ui';
 
 export function UiDateDemo() {
@@ -11,8 +28,8 @@ export function UiDateDemo() {
 
   return (
     <UiDate
-      label="Fecha"
-      placeholder="Seleccione una fecha"
+      label="${t.label}"
+      placeholder="${t.placeholder}"
       value={date}
       onChange={setDate}
       requiredLabel
@@ -20,18 +37,13 @@ export function UiDateDemo() {
   );
 }`;
 
-export default function UiDateDemoPage() {
-  const [date, setDate] = React.useState<Date | undefined>();
-
   return (
-    <DemoPage
-      title="UiDate"
-      description="Selector de fecha con label, independiente de React Hook Form."
-    >
+    <DemoPage title="UiDate">
       <DemoPreview code={code} className="max-w-sm">
         <UiDate
-          label="Fecha"
-          placeholder="Seleccione una fecha"
+          label={t.label}
+          placeholder={t.placeholder}
+          locale={dateLocale}
           value={date}
           onChange={setDate}
           requiredLabel

@@ -1,34 +1,45 @@
 import { Breadcrumbs } from "@/shared/breadcrumbs";
+import { useCopy } from "../../i18n/copy";
 import { DemoPage, DemoPreview } from "../../layout/DemoPage";
 
-const code = `import { Breadcrumbs } from '@blencm/ui';
+export default function BreadcrumbsDemoPage() {
+  const t = useCopy({
+    en: {
+      home: "Home",
+      projects: "Projects",
+      website: "Website",
+    },
+    es: {
+      home: "Inicio",
+      projects: "Proyectos",
+      website: "Sitio web",
+    },
+  });
+
+  const items = [
+    { title: t.home, link: "#" },
+    { title: t.projects, link: "#" },
+    { title: t.website },
+  ];
+
+  const code = `import { Breadcrumbs } from '@blencm/ui';
 
 export function BreadcrumbsDemo() {
   return (
     <Breadcrumbs
       items={[
-        { title: 'Inicio', link: '#' },
-        { title: 'Proyectos', link: '#' },
-        { title: 'Website' }
+        { title: '${t.home}', link: '#' },
+        { title: '${t.projects}', link: '#' },
+        { title: '${t.website}' }
       ]}
     />
   );
 }`;
 
-export default function BreadcrumbsDemoPage() {
   return (
-    <DemoPage
-      title="Breadcrumbs"
-      description="Helper de breadcrumbs a partir de una lista de items."
-    >
+    <DemoPage title="Breadcrumbs">
       <DemoPreview code={code}>
-        <Breadcrumbs
-          items={[
-            { title: "Inicio", link: "#" },
-            { title: "Proyectos", link: "#" },
-            { title: "Website" },
-          ]}
-        />
+        <Breadcrumbs items={items} />
       </DemoPreview>
     </DemoPage>
   );

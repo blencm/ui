@@ -1,35 +1,43 @@
 import { Alert, AlertDescription, AlertTitle } from "@/components/alert";
+import { useCopy } from "../../i18n/copy";
 import { DemoPage, DemoPreview } from "../../layout/DemoPage";
 
-const code = `import { Alert, AlertDescription, AlertTitle } from '@blencm/ui';
+export default function AlertDemoPage() {
+  const t = useCopy({
+    en: {
+      savedTitle: "Changes saved",
+      savedBody: "Your profile was updated successfully.",
+      errorTitle: "Could not save",
+      errorBody: "Check the required fields and try again.",
+    },
+    es: {
+      savedTitle: "Cambios guardados",
+      savedBody: "Tu perfil se actualizó correctamente.",
+      errorTitle: "No se pudo guardar",
+      errorBody: "Revisa los campos requeridos e inténtalo de nuevo.",
+    },
+  });
+  const code = `import { Alert, AlertDescription, AlertTitle } from '@blencm/ui';
 
 export function AlertDemo() {
   return (
     <Alert>
-      <AlertTitle>Cambios guardados</AlertTitle>
-      <AlertDescription>Tu perfil se actualizó correctamente.</AlertDescription>
+      <AlertTitle>${t.savedTitle}</AlertTitle>
+      <AlertDescription>${t.savedBody}</AlertDescription>
     </Alert>
   );
 }`;
 
-export default function AlertDemoPage() {
   return (
-    <DemoPage
-      title="Alert"
-      description="Mensajes inline para información o errores."
-    >
+    <DemoPage title="Alert">
       <DemoPreview code={code} className="space-y-4">
         <Alert>
-          <AlertTitle>Cambios guardados</AlertTitle>
-          <AlertDescription>
-            Tu perfil se actualizó correctamente.
-          </AlertDescription>
+          <AlertTitle>{t.savedTitle}</AlertTitle>
+          <AlertDescription>{t.savedBody}</AlertDescription>
         </Alert>
         <Alert variant="destructive">
-          <AlertTitle>No se pudo guardar</AlertTitle>
-          <AlertDescription>
-            Revisa los campos requeridos e inténtalo de nuevo.
-          </AlertDescription>
+          <AlertTitle>{t.errorTitle}</AlertTitle>
+          <AlertDescription>{t.errorBody}</AlertDescription>
         </Alert>
       </DemoPreview>
     </DemoPage>

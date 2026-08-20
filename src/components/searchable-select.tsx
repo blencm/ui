@@ -597,7 +597,7 @@ function SearchableSelectBase<TData = unknown>({
         {inputValue && open ? (
           <button
             type="button"
-            aria-label="Limpiar búsqueda"
+            aria-label="Clear search"
             tabIndex={-1}
             onPointerDown={(event) => {
               event.preventDefault();

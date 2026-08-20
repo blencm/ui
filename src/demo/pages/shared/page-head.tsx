@@ -1,23 +1,31 @@
 import { PageHead } from "@/shared/page-head";
+import { useCopy } from "../../i18n/copy";
 import { DemoPage, DemoPreview } from "../../layout/DemoPage";
 
-const code = `import { PageHead } from '@blencm/ui';
+export default function PageHeadDemoPage() {
+  const t = useCopy({
+    en: {
+      docTitle: "PageHead demo · @blencm/ui",
+      hint: "Look at the browser tab title: this component changes it to",
+    },
+    es: {
+      docTitle: "PageHead demo · @blencm/ui",
+      hint: "Mira el título de la pestaña del navegador: este componente lo cambia a",
+    },
+  });
+
+  const code = `import { PageHead } from '@blencm/ui';
 
 export function PageHeadDemo() {
-  return <PageHead title="PageHead demo · @blencm/ui" />;
+  return <PageHead title="${t.docTitle}" />;
 }`;
 
-export default function PageHeadDemoPage() {
   return (
-    <DemoPage
-      title="PageHead"
-      description="Actualiza el título del documento con react-helmet-next."
-    >
-      <PageHead title="PageHead demo · @blencm/ui" />
+    <DemoPage title="PageHead">
+      <PageHead title={t.docTitle} />
       <DemoPreview code={code}>
         <p className="text-sm">
-          Mira el título de la pestaña del navegador: este componente lo cambia
-          a <strong>PageHead demo · @blencm/ui</strong>.
+          {t.hint} <strong>{t.docTitle}</strong>.
         </p>
       </DemoPreview>
     </DemoPage>

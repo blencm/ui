@@ -8,7 +8,8 @@ import {
 import { Card, CardContent } from "@/components/card";
 import { DemoPage, DemoPreview } from "../../layout/DemoPage";
 
-const code = `import {
+export default function CarouselDemoPage() {
+  const code = `import {
   Card,
   CardContent,
   Carousel,
@@ -38,9 +39,8 @@ export function CarouselDemo() {
   );
 }`;
 
-export default function CarouselDemoPage() {
   return (
-    <DemoPage title="Carousel" description="Carrusel horizontal con controles.">
+    <DemoPage title="Carousel">
       <DemoPreview code={code} className="px-12">
         <Carousel className="w-full max-w-sm">
           <CarouselContent>

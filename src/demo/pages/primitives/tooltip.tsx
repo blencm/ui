@@ -5,9 +5,16 @@ import {
   TooltipProvider,
   TooltipTrigger,
 } from "@/components/tooltip";
+import { useCopy } from "../../i18n/copy";
 import { DemoPage, DemoPreview } from "../../layout/DemoPage";
 
-const code = `import {
+export default function TooltipDemoPage() {
+  const t = useCopy({
+    en: { trigger: "Hover", content: "Additional information" },
+    es: { trigger: "Hover", content: "Información adicional" },
+  });
+
+  const code = `import {
   Button,
   Tooltip,
   TooltipContent,
@@ -20,24 +27,23 @@ export function TooltipDemo() {
     <TooltipProvider>
       <Tooltip>
         <TooltipTrigger asChild>
-          <Button variant="outline">Hover</Button>
+          <Button variant="outline">${t.trigger}</Button>
         </TooltipTrigger>
-        <TooltipContent>Información adicional</TooltipContent>
+        <TooltipContent>${t.content}</TooltipContent>
       </Tooltip>
     </TooltipProvider>
   );
 }`;
 
-export default function TooltipDemoPage() {
   return (
-    <DemoPage title="Tooltip" description="Texto de ayuda al pasar el cursor.">
+    <DemoPage title="Tooltip">
       <DemoPreview code={code}>
         <TooltipProvider>
           <Tooltip>
             <TooltipTrigger asChild>
-              <Button variant="outline">Hover</Button>
+              <Button variant="outline">{t.trigger}</Button>
             </TooltipTrigger>
-            <TooltipContent>Información adicional</TooltipContent>
+            <TooltipContent>{t.content}</TooltipContent>
           </Tooltip>
         </TooltipProvider>
       </DemoPreview>

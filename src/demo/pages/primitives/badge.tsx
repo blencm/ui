@@ -1,7 +1,8 @@
 import { Badge } from "@/components/badge";
 import { DemoPage, DemoPreview } from "../../layout/DemoPage";
 
-const code = `import { Badge } from '@blencm/ui';
+export default function BadgeDemoPage() {
+  const code = `import { Badge } from '@blencm/ui';
 
 export function BadgeDemo() {
   return (
@@ -14,9 +15,8 @@ export function BadgeDemo() {
   );
 }`;
 
-export default function BadgeDemoPage() {
   return (
-    <DemoPage title="Badge" description="Etiquetas compactas para estado o categoría.">
+    <DemoPage title="Badge">
       <DemoPreview code={code} className="flex flex-wrap gap-2">
         <Badge>Default</Badge>
         <Badge variant="secondary">Secondary</Badge>

@@ -4,34 +4,44 @@ import {
   PopoverContent,
   PopoverTrigger,
 } from "@/components/popover";
+import { useCopy } from "../../i18n/copy";
 import { DemoPage, DemoPreview } from "../../layout/DemoPage";
 
-const code = `import { Button, Popover, PopoverContent, PopoverTrigger } from '@blencm/ui';
+export default function PopoverDemoPage() {
+  const t = useCopy({
+    en: {
+      open: "Open popover",
+      body: "Popover content. You can put a form or a short menu.",
+    },
+    es: {
+      open: "Abrir popover",
+      body: "Contenido del popover. Puedes poner un formulario o un menú corto.",
+    },
+  });
+
+  const code = `import { Button, Popover, PopoverContent, PopoverTrigger } from '@blencm/ui';
 
 export function PopoverDemo() {
   return (
     <Popover>
       <PopoverTrigger asChild>
-        <Button variant="outline">Abrir popover</Button>
+        <Button variant="outline">${t.open}</Button>
       </PopoverTrigger>
       <PopoverContent className="text-sm">
-        Contenido del popover. Puedes poner un formulario o un menú corto.
+        ${t.body}
       </PopoverContent>
     </Popover>
   );
 }`;
 
-export default function PopoverDemoPage() {
   return (
-    <DemoPage title="Popover" description="Panel flotante anclado a un botón.">
+    <DemoPage title="Popover">
       <DemoPreview code={code}>
         <Popover>
           <PopoverTrigger asChild>
-            <Button variant="outline">Abrir popover</Button>
+            <Button variant="outline">{t.open}</Button>
           </PopoverTrigger>
-          <PopoverContent className="text-sm">
-            Contenido del popover. Puedes poner un formulario o un menú corto.
-          </PopoverContent>
+          <PopoverContent className="text-sm">{t.body}</PopoverContent>
         </Popover>
       </DemoPreview>
     </DemoPage>

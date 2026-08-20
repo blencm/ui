@@ -6,9 +6,25 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/card";
+import { useCopy } from "../../i18n/copy";
 import { DemoPage, DemoPreview } from "../../layout/DemoPage";
 
-const code = `import {
+export default function CardDemoPage() {
+  const t = useCopy({
+    en: {
+      title: "Starter Kit",
+      badge: "New",
+      description: "A simple card example.",
+      content: "Use Card to group a title, badge, and supporting description.",
+    },
+    es: {
+      title: "Starter Kit",
+      badge: "New",
+      description: "Un ejemplo simple de tarjeta.",
+      content: "Usa Card para agrupar título, badge y descripción de apoyo.",
+    },
+  });
+  const code = `import {
   Badge,
   Card,
   CardContent,
@@ -21,31 +37,30 @@ export function CardDemo() {
     <Card className="max-w-md">
       <CardHeader>
         <CardTitle className="flex items-center justify-between gap-4">
-          Starter Kit
-          <Badge>New</Badge>
+          ${t.title}
+          <Badge>${t.badge}</Badge>
         </CardTitle>
       </CardHeader>
       <CardContent className="text-sm text-muted-foreground">
-        Un ejemplo simple de tarjeta.
+        ${t.description}
       </CardContent>
     </Card>
   );
 }`;
 
-export default function CardDemoPage() {
   return (
-    <DemoPage title="Card" description="Contenedor con encabezado, contenido y pie.">
+    <DemoPage title="Card">
       <DemoPreview code={code}>
         <Card className="max-w-md">
           <CardHeader>
             <CardTitle className="flex items-center justify-between gap-4">
-              Starter Kit
-              <Badge>New</Badge>
+              {t.title}
+              <Badge>{t.badge}</Badge>
             </CardTitle>
-            <CardDescription>Un ejemplo simple de tarjeta.</CardDescription>
+            <CardDescription>{t.description}</CardDescription>
           </CardHeader>
           <CardContent className="text-muted-foreground text-sm">
-            Usa Card para agrupar título, badge y descripción de apoyo.
+            {t.content}
           </CardContent>
         </Card>
       </DemoPreview>

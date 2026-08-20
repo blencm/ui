@@ -4,9 +4,19 @@ import {
   HoverCardContent,
   HoverCardTrigger,
 } from "@/components/hover-card";
+import { useCopy } from "../../i18n/copy";
 import { DemoPage, DemoPreview } from "../../layout/DemoPage";
 
-const code = `import { Button, HoverCard, HoverCardContent, HoverCardTrigger } from '@blencm/ui';
+export default function HoverCardDemoPage() {
+  const t = useCopy({
+    en: {
+      body: "React component library with Tailwind CSS and Radix primitives.",
+    },
+    es: {
+      body: "Librería de componentes React con Tailwind CSS y primitivas Radix.",
+    },
+  });
+  const code = `import { Button, HoverCard, HoverCardContent, HoverCardTrigger } from '@blencm/ui';
 
 export function HoverCardDemo() {
   return (
@@ -15,23 +25,20 @@ export function HoverCardDemo() {
         <Button variant="link">@blencm/ui</Button>
       </HoverCardTrigger>
       <HoverCardContent>
-        Librería de componentes React con Tailwind CSS.
+        ${t.body}
       </HoverCardContent>
     </HoverCard>
   );
 }`;
 
-export default function HoverCardDemoPage() {
   return (
-    <DemoPage title="HoverCard" description="Tarjeta que aparece al pasar el cursor.">
+    <DemoPage title="HoverCard">
       <DemoPreview code={code}>
         <HoverCard>
           <HoverCardTrigger asChild>
             <Button variant="link">@blencm/ui</Button>
           </HoverCardTrigger>
-          <HoverCardContent className="w-72">
-            Librería de componentes React con Tailwind CSS y primitivas Radix.
-          </HoverCardContent>
+          <HoverCardContent className="w-72">{t.body}</HoverCardContent>
         </HoverCard>
       </DemoPreview>
     </DemoPage>

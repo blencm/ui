@@ -7,9 +7,27 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/dropdown-menu";
+import { useCopy } from "../../i18n/copy";
 import { DemoPage, DemoPreview } from "../../layout/DemoPage";
 
-const code = `import {
+export default function DropdownMenuDemoPage() {
+  const t = useCopy({
+    en: {
+      open: "Open menu",
+      account: "My account",
+      profile: "Profile",
+      settings: "Settings",
+      logout: "Log out",
+    },
+    es: {
+      open: "Abrir menú",
+      account: "Mi cuenta",
+      profile: "Perfil",
+      settings: "Ajustes",
+      logout: "Cerrar sesión",
+    },
+  });
+  const code = `import {
   Button,
   DropdownMenu,
   DropdownMenuContent,
@@ -23,32 +41,31 @@ export function DropdownMenuDemo() {
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
-        <Button variant="outline">Abrir menú</Button>
+        <Button variant="outline">${t.open}</Button>
       </DropdownMenuTrigger>
       <DropdownMenuContent>
-        <DropdownMenuLabel>Mi cuenta</DropdownMenuLabel>
+        <DropdownMenuLabel>${t.account}</DropdownMenuLabel>
         <DropdownMenuSeparator />
-        <DropdownMenuItem>Perfil</DropdownMenuItem>
-        <DropdownMenuItem>Ajustes</DropdownMenuItem>
+        <DropdownMenuItem>${t.profile}</DropdownMenuItem>
+        <DropdownMenuItem>${t.settings}</DropdownMenuItem>
       </DropdownMenuContent>
     </DropdownMenu>
   );
 }`;
 
-export default function DropdownMenuDemoPage() {
   return (
-    <DemoPage title="DropdownMenu" description="Menú desplegable anclado a un trigger.">
+    <DemoPage title="DropdownMenu">
       <DemoPreview code={code}>
         <DropdownMenu>
           <DropdownMenuTrigger asChild>
-            <Button variant="outline">Abrir menú</Button>
+            <Button variant="outline">{t.open}</Button>
           </DropdownMenuTrigger>
           <DropdownMenuContent>
-            <DropdownMenuLabel>Mi cuenta</DropdownMenuLabel>
+            <DropdownMenuLabel>{t.account}</DropdownMenuLabel>
             <DropdownMenuSeparator />
-            <DropdownMenuItem>Perfil</DropdownMenuItem>
-            <DropdownMenuItem>Ajustes</DropdownMenuItem>
-            <DropdownMenuItem>Cerrar sesión</DropdownMenuItem>
+            <DropdownMenuItem>{t.profile}</DropdownMenuItem>
+            <DropdownMenuItem>{t.settings}</DropdownMenuItem>
+            <DropdownMenuItem>{t.logout}</DropdownMenuItem>
           </DropdownMenuContent>
         </DropdownMenu>
       </DemoPreview>

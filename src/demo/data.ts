@@ -141,6 +141,86 @@ export const COUNTRY_ITEMS = [
   { value: "ng", label: "Nigeria", keywords: "nigeria abuja lagos" },
 ];
 
+const COUNTRY_LABEL_EN: Record<string, string> = {
+  es: "Spain",
+  pe: "Peru",
+  cn: "China",
+  us: "United States",
+  mx: "Mexico",
+  ar: "Argentina",
+  bo: "Bolivia",
+  br: "Brazil",
+  cl: "Chile",
+  co: "Colombia",
+  cr: "Costa Rica",
+  cu: "Cuba",
+  do: "Dominican Republic",
+  ec: "Ecuador",
+  gt: "Guatemala",
+  hn: "Honduras",
+  ni: "Nicaragua",
+  pa: "Panama",
+  py: "Paraguay",
+  uy: "Uruguay",
+  ve: "Venezuela",
+  ca: "Canada",
+  fr: "France",
+  de: "Germany",
+  it: "Italy",
+  pt: "Portugal",
+  gb: "United Kingdom",
+  ie: "Ireland",
+  nl: "Netherlands",
+  be: "Belgium",
+  ch: "Switzerland",
+  at: "Austria",
+  se: "Sweden",
+  no: "Norway",
+  dk: "Denmark",
+  fi: "Finland",
+  pl: "Poland",
+  ro: "Romania",
+  gr: "Greece",
+  tr: "Turkey",
+  ru: "Russia",
+  ua: "Ukraine",
+  jp: "Japan",
+  kr: "South Korea",
+  in: "India",
+  id: "Indonesia",
+  th: "Thailand",
+  vn: "Vietnam",
+  ph: "Philippines",
+  my: "Malaysia",
+  sg: "Singapore",
+  ae: "United Arab Emirates",
+  sa: "Saudi Arabia",
+  il: "Israel",
+  au: "Australia",
+  nz: "New Zealand",
+  ma: "Morocco",
+  eg: "Egypt",
+  za: "South Africa",
+  ng: "Nigeria",
+};
+
+export function getCountryItems(locale: "en" | "es") {
+  if (locale === "es") return COUNTRY_ITEMS;
+  return COUNTRY_ITEMS.map((item) => ({
+    ...item,
+    label: COUNTRY_LABEL_EN[item.value] ?? item.label,
+  }));
+}
+
+export function getStatusOptions(locale: "en" | "es") {
+  if (locale === "es") return STATUS_OPTIONS;
+  return [
+    { label: "All", value: "all" },
+    { label: "Active", value: "active" },
+    { label: "Inactive", value: "inactive" },
+  ];
+}
+
 export const STATUS_OPTIONS = [
   { label: "Todos", value: "all" },
   { label: "Activos", value: "active" },

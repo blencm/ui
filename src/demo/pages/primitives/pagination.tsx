@@ -8,7 +8,8 @@ import {
 } from "@/components/pagination";
 import { DemoPage, DemoPreview } from "../../layout/DemoPage";
 
-const code = `import {
+export default function PaginationDemoPage() {
+  const code = `import {
   Pagination,
   PaginationContent,
   PaginationItem,
@@ -43,9 +44,8 @@ export function PaginationDemo() {
   );
 }`;
 
-export default function PaginationDemoPage() {
   return (
-    <DemoPage title="Pagination" description="Controles de paginación de bajo nivel.">
+    <DemoPage title="Pagination">
       <DemoPreview code={code}>
         <Pagination>
           <PaginationContent>

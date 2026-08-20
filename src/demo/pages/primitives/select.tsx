@@ -7,9 +7,23 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/select";
+import { useCopy } from "../../i18n/copy";
 import { DemoPage, DemoPreview } from "../../layout/DemoPage";
 
-const code = `import * as React from 'react';
+export default function SelectDemoPage() {
+  const [value, setValue] = React.useState("");
+  const t = useCopy({
+    en: {
+      placeholder: "Choose a theme",
+      system: "System",
+    },
+    es: {
+      placeholder: "Elige un tema",
+      system: "Sistema",
+    },
+  });
+
+  const code = `import * as React from 'react';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@blencm/ui';
 
 export function SelectDemo() {
@@ -18,31 +32,28 @@ export function SelectDemo() {
   return (
     <Select value={value} onValueChange={setValue}>
       <SelectTrigger>
-        <SelectValue placeholder="Elige un tema" />
+        <SelectValue placeholder="${t.placeholder}" />
       </SelectTrigger>
       <SelectContent>
         <SelectItem value="light">Light</SelectItem>
         <SelectItem value="dark">Dark</SelectItem>
-        <SelectItem value="system">System</SelectItem>
+        <SelectItem value="system">${t.system}</SelectItem>
       </SelectContent>
     </Select>
   );
 }`;
 
-export default function SelectDemoPage() {
-  const [value, setValue] = React.useState("");
-
   return (
-    <DemoPage title="Select" description="Selector de opciones de bajo nivel.">
+    <DemoPage title="Select">
       <DemoPreview code={code} className="max-w-xs">
         <Select value={value} onValueChange={setValue}>
           <SelectTrigger>
-            <SelectValue placeholder="Elige un tema" />
+            <SelectValue placeholder={t.placeholder} />
           </SelectTrigger>
           <SelectContent>
             <SelectItem value="light">Light</SelectItem>
             <SelectItem value="dark">Dark</SelectItem>
-            <SelectItem value="system">System</SelectItem>
+            <SelectItem value="system">{t.system}</SelectItem>
           </SelectContent>
         </Select>
       </DemoPreview>

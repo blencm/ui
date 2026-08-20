@@ -1,9 +1,24 @@
 import * as React from "react";
 
 import { UiTime } from "@/components/ui/ui-time";
+import { useCopy } from "../../i18n/copy";
 import { DemoPage, DemoPreview } from "../../layout/DemoPage";
 
-const code = `import * as React from 'react';
+export default function UiTimeDemoPage() {
+  const t = useCopy({
+    en: {
+      label: "Time",
+      placeholder: "Select a time",
+    },
+    es: {
+      label: "Hora",
+      placeholder: "Seleccione una hora",
+    },
+  });
+
+  const [time, setTime] = React.useState<Date | undefined>();
+
+  const code = `import * as React from 'react';
 import { UiTime } from '@blencm/ui';
 
 export function UiTimeDemo() {
@@ -11,26 +26,20 @@ export function UiTimeDemo() {
 
   return (
     <UiTime
-      label="Hora"
-      placeholder="Seleccione una hora"
+      label="${t.label}"
+      placeholder="${t.placeholder}"
       value={time}
       onChange={setTime}
     />
   );
 }`;
 
-export default function UiTimeDemoPage() {
-  const [time, setTime] = React.useState<Date | undefined>();
-
   return (
-    <DemoPage
-      title="UiTime"
-      description="Selector de hora con label, independiente de React Hook Form."
-    >
+    <DemoPage title="UiTime">
       <DemoPreview code={code} className="max-w-sm">
         <UiTime
-          label="Hora"
-          placeholder="Seleccione una hora"
+          label={t.label}
+          placeholder={t.placeholder}
           value={time}
           onChange={setTime}
         />

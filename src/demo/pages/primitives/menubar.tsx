@@ -6,9 +6,32 @@ import {
   MenubarSeparator,
   MenubarTrigger,
 } from "@/components/menubar";
+import { useCopy } from "../../i18n/copy";
 import { DemoPage, DemoPreview } from "../../layout/DemoPage";
 
-const code = `import {
+export default function MenubarDemoPage() {
+  const t = useCopy({
+    en: {
+      file: "File",
+      new: "New",
+      open: "Open",
+      exit: "Exit",
+      edit: "Edit",
+      undo: "Undo",
+      redo: "Redo",
+    },
+    es: {
+      file: "Archivo",
+      new: "Nuevo",
+      open: "Abrir",
+      exit: "Salir",
+      edit: "Editar",
+      undo: "Deshacer",
+      redo: "Rehacer",
+    },
+  });
+
+  const code = `import {
   Menubar,
   MenubarContent,
   MenubarItem,
@@ -21,44 +44,43 @@ export function MenubarDemo() {
   return (
     <Menubar>
       <MenubarMenu>
-        <MenubarTrigger>Archivo</MenubarTrigger>
+        <MenubarTrigger>${t.file}</MenubarTrigger>
         <MenubarContent>
-          <MenubarItem>Nuevo</MenubarItem>
-          <MenubarItem>Abrir</MenubarItem>
+          <MenubarItem>${t.new}</MenubarItem>
+          <MenubarItem>${t.open}</MenubarItem>
           <MenubarSeparator />
-          <MenubarItem>Salir</MenubarItem>
+          <MenubarItem>${t.exit}</MenubarItem>
         </MenubarContent>
       </MenubarMenu>
       <MenubarMenu>
-        <MenubarTrigger>Editar</MenubarTrigger>
+        <MenubarTrigger>${t.edit}</MenubarTrigger>
         <MenubarContent>
-          <MenubarItem>Deshacer</MenubarItem>
-          <MenubarItem>Rehacer</MenubarItem>
+          <MenubarItem>${t.undo}</MenubarItem>
+          <MenubarItem>${t.redo}</MenubarItem>
         </MenubarContent>
       </MenubarMenu>
     </Menubar>
   );
 }`;
 
-export default function MenubarDemoPage() {
   return (
-    <DemoPage title="Menubar" description="Barra de menús de aplicación.">
+    <DemoPage title="Menubar">
       <DemoPreview code={code}>
         <Menubar>
           <MenubarMenu>
-            <MenubarTrigger>Archivo</MenubarTrigger>
+            <MenubarTrigger>{t.file}</MenubarTrigger>
             <MenubarContent>
-              <MenubarItem>Nuevo</MenubarItem>
-              <MenubarItem>Abrir</MenubarItem>
+              <MenubarItem>{t.new}</MenubarItem>
+              <MenubarItem>{t.open}</MenubarItem>
               <MenubarSeparator />
-              <MenubarItem>Salir</MenubarItem>
+              <MenubarItem>{t.exit}</MenubarItem>
             </MenubarContent>
           </MenubarMenu>
           <MenubarMenu>
-            <MenubarTrigger>Editar</MenubarTrigger>
+            <MenubarTrigger>{t.edit}</MenubarTrigger>
             <MenubarContent>
-              <MenubarItem>Deshacer</MenubarItem>
-              <MenubarItem>Rehacer</MenubarItem>
+              <MenubarItem>{t.undo}</MenubarItem>
+              <MenubarItem>{t.redo}</MenubarItem>
             </MenubarContent>
           </MenubarMenu>
         </Menubar>

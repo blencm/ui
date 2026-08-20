@@ -20,11 +20,10 @@ const PEERS = {
   yarn: "yarn add react react-dom",
 } as const;
 
-const USAGE = `import { Button } from '@blencm/ui';
+const USAGE_PREFIX = `import { Button } from '@blencm/ui';
 
 export function Example() {
-  return <Button>Save</Button>;
-}`;
+  return <Button>`;
 
 const DARK_MODE = `<html class="dark">
   <body>
@@ -36,6 +35,8 @@ const OPTIONAL_CSS = `import '@blencm/ui/style.css';`;
 
 export function HomePage() {
   const { locale, m } = useLocale();
+  const usage = `${USAGE_PREFIX}${m.save}</Button>;
+}`;
 
   return (
     <div className="mx-auto max-w-3xl space-y-14 pb-16">
@@ -88,7 +89,7 @@ export function HomePage() {
           <h2 className="text-xl font-semibold tracking-tight">{m.usageTitle}</h2>
           <p className="text-muted-foreground text-sm leading-6">{m.usageBody}</p>
         </div>
-        <CodeSnippet code={USAGE} />
+        <CodeSnippet code={usage} />
       </section>
 
       <section className="space-y-4">

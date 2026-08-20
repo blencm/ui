@@ -17,19 +17,16 @@ import { getDemoBySlug } from "../registry";
 
 export function DemoPage({
   title,
-  description,
   children,
 }: {
   title: string;
-  description?: string;
   children: React.ReactNode;
 }) {
   const { locale, m } = useLocale();
   const { pathname } = useLocation();
   const slug = pathname.replace(/^\/+|\/+$/g, "");
   const demo = getDemoBySlug(slug);
-  const resolvedDescription =
-    demo?.description[locale] ?? demo?.description.en ?? description ?? "";
+  const resolvedDescription = demo?.description[locale] ?? demo?.description.en ?? "";
 
   return (
     <div className="mx-auto max-w-4xl space-y-8">

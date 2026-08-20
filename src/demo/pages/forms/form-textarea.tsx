@@ -5,19 +5,41 @@ import { z } from "zod";
 import { Button } from "@/components/Button/button";
 import { Form } from "@/components/Form/form";
 import { FormTextarea } from "@/components/Form/form-textarea";
+import { useCopy } from "../../i18n/copy";
 import { DemoPage, DemoPreview } from "../../layout/DemoPage";
 
-const schema = z.object({
-  description: z.string().min(10, "Mínimo 10 caracteres"),
-});
+export default function FormTextareaDemoPage() {
+  const t = useCopy({
+    en: {
+      min10: "Minimum 10 characters",
+      description: "Description",
+      placeholder: "Enter a description",
+      submit: "Submit",
+    },
+    es: {
+      min10: "Mínimo 10 caracteres",
+      description: "Descripción",
+      placeholder: "Ingrese una descripción",
+      submit: "Enviar",
+    },
+  });
 
-const code = `import { zodResolver } from '@hookform/resolvers/zod';
+  const schema = z.object({
+    description: z.string().min(10, t.min10),
+  });
+
+  const form = useForm({
+    resolver: zodResolver(schema),
+    defaultValues: { description: "" },
+  });
+
+  const code = `import { zodResolver } from '@hookform/resolvers/zod';
 import { useForm } from 'react-hook-form';
 import { z } from 'zod';
 import { Button, Form, FormTextarea } from '@blencm/ui';
 
 const schema = z.object({
-  description: z.string().min(10, 'Mínimo 10 caracteres')
+  description: z.string().min(10, '${t.min10}')
 });
 
 export function FormTextareaDemo() {
@@ -35,27 +57,18 @@ export function FormTextareaDemo() {
       <FormTextarea
         control={form.control}
         name="description"
-        label="Descripción"
-        placeholder="Ingrese una descripción"
+        label="${t.description}"
+        placeholder="${t.placeholder}"
         requiredLabel
         rows={4}
       />
-      <Button type="submit">Enviar</Button>
+      <Button type="submit">${t.submit}</Button>
     </Form>
   );
 }`;
 
-export default function FormTextareaDemoPage() {
-  const form = useForm({
-    resolver: zodResolver(schema),
-    defaultValues: { description: "" },
-  });
-
   return (
-    <DemoPage
-      title="FormTextarea"
-      description="Textarea ligado a React Hook Form."
-    >
+    <DemoPage title="FormTextarea">
       <DemoPreview code={code} className="max-w-md">
         <Form
           methods={form}
@@ -65,12 +78,12 @@ export default function FormTextareaDemoPage() {
           <FormTextarea
             control={form.control}
             name="description"
-            label="Descripción"
-            placeholder="Ingrese una descripción"
+            label={t.description}
+            placeholder={t.placeholder}
             requiredLabel
             rows={4}
           />
-          <Button type="submit">Enviar</Button>
+          <Button type="submit">{t.submit}</Button>
         </Form>
       </DemoPreview>
     </DemoPage>

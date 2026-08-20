@@ -6,7 +6,8 @@ import {
 } from "@/components/input-otp";
 import { DemoPage, DemoPreview } from "../../layout/DemoPage";
 
-const code = `import { InputOTP, InputOTPGroup, InputOTPSeparator, InputOTPSlot } from '@blencm/ui';
+export default function InputOtpDemoPage() {
+  const code = `import { InputOTP, InputOTPGroup, InputOTPSeparator, InputOTPSlot } from '@blencm/ui';
 
 export function InputOTPDemo() {
   return (
@@ -26,9 +27,8 @@ export function InputOTPDemo() {
   );
 }`;
 
-export default function InputOtpDemoPage() {
   return (
-    <DemoPage title="InputOTP" description="Entrada de código de un solo uso.">
+    <DemoPage title="InputOTP">
       <DemoPreview code={code}>
         <InputOTP maxLength={6}>
           <InputOTPGroup>

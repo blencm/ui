@@ -1,17 +1,23 @@
 import { Textarea } from "@/components/textarea";
+import { useCopy } from "../../i18n/copy";
 import { DemoPage, DemoPreview } from "../../layout/DemoPage";
 
-const code = `import { Textarea } from '@blencm/ui';
+export default function TextareaDemoPage() {
+  const t = useCopy({
+    en: { placeholder: "Write a note..." },
+    es: { placeholder: "Escribe una nota..." },
+  });
+
+  const code = `import { Textarea } from '@blencm/ui';
 
 export function TextareaDemo() {
-  return <Textarea placeholder="Escribe una nota..." rows={4} />;
+  return <Textarea placeholder="${t.placeholder}" rows={4} />;
 }`;
 
-export default function TextareaDemoPage() {
   return (
-    <DemoPage title="Textarea" description="Campo de texto multilínea.">
+    <DemoPage title="Textarea">
       <DemoPreview code={code} className="max-w-md">
-        <Textarea placeholder="Escribe una nota..." rows={4} />
+        <Textarea placeholder={t.placeholder} rows={4} />
       </DemoPreview>
     </DemoPage>
   );

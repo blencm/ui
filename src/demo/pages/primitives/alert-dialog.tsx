@@ -12,9 +12,30 @@ import {
   AlertDialogTrigger,
 } from "@/components/alert-dialog";
 import { Button } from "@/components/Button/button";
+import { useCopy } from "../../i18n/copy";
 import { DemoPage, DemoPreview } from "../../layout/DemoPage";
 
-const code = `import {
+export default function AlertDialogDemoPage() {
+  const [confirmed, setConfirmed] = React.useState(false);
+  const t = useCopy({
+    en: {
+      delete: "Delete",
+      title: "Delete this item?",
+      description: "This action cannot be undone.",
+      cancel: "Cancel",
+      confirm: "Confirm",
+      confirmed: "Confirmed",
+    },
+    es: {
+      delete: "Eliminar",
+      title: "Eliminar este elemento?",
+      description: "Esta acción no se puede deshacer.",
+      cancel: "Cancelar",
+      confirm: "Confirmar",
+      confirmed: "Confirmado",
+    },
+  });
+  const code = `import {
   AlertDialog,
   AlertDialogAction,
   AlertDialogCancel,
@@ -31,54 +52,46 @@ export function AlertDialogDemo() {
   return (
     <AlertDialog>
       <AlertDialogTrigger asChild>
-        <Button variant="destructive">Eliminar</Button>
+        <Button variant="destructive">${t.delete}</Button>
       </AlertDialogTrigger>
       <AlertDialogContent>
         <AlertDialogHeader>
-          <AlertDialogTitle>Eliminar este elemento?</AlertDialogTitle>
+          <AlertDialogTitle>${t.title}</AlertDialogTitle>
           <AlertDialogDescription>
-            Esta acción no se puede deshacer.
+            ${t.description}
           </AlertDialogDescription>
         </AlertDialogHeader>
         <AlertDialogFooter>
-          <AlertDialogCancel>Cancelar</AlertDialogCancel>
-          <AlertDialogAction>Confirmar</AlertDialogAction>
+          <AlertDialogCancel>${t.cancel}</AlertDialogCancel>
+          <AlertDialogAction>${t.confirm}</AlertDialogAction>
         </AlertDialogFooter>
       </AlertDialogContent>
     </AlertDialog>
   );
 }`;
 
-export default function AlertDialogDemoPage() {
-  const [confirmed, setConfirmed] = React.useState(false);
-
   return (
-    <DemoPage
-      title="AlertDialog"
-      description="Diálogo modal para confirmar una acción destructiva."
-    >
+    <DemoPage title="AlertDialog">
       <DemoPreview code={code} className="flex flex-wrap items-center gap-4">
         <AlertDialog>
           <AlertDialogTrigger asChild>
-            <Button variant="destructive">Eliminar</Button>
+            <Button variant="destructive">{t.delete}</Button>
           </AlertDialogTrigger>
           <AlertDialogContent>
             <AlertDialogHeader>
-              <AlertDialogTitle>Eliminar este elemento?</AlertDialogTitle>
-              <AlertDialogDescription>
-                Esta acción no se puede deshacer.
-              </AlertDialogDescription>
+              <AlertDialogTitle>{t.title}</AlertDialogTitle>
+              <AlertDialogDescription>{t.description}</AlertDialogDescription>
             </AlertDialogHeader>
             <AlertDialogFooter>
-              <AlertDialogCancel>Cancelar</AlertDialogCancel>
+              <AlertDialogCancel>{t.cancel}</AlertDialogCancel>
               <AlertDialogAction onClick={() => setConfirmed(true)}>
-                Confirmar
+                {t.confirm}
               </AlertDialogAction>
             </AlertDialogFooter>
           </AlertDialogContent>
         </AlertDialog>
         {confirmed ? (
-          <span className="text-muted-foreground text-sm">Confirmado</span>
+          <span className="text-muted-foreground text-sm">{t.confirmed}</span>
         ) : null}
       </DemoPreview>
     </DemoPage>

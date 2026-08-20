@@ -23,10 +23,7 @@ export default function PaginationSectionDemoPage() {
   const [page, setPage] = React.useState(1);
 
   return (
-    <DemoPage
-      title="PaginationSection"
-      description="Paginación lista para listas con total de posts y página actual."
-    >
+    <DemoPage title="PaginationSection">
       <DemoPreview code={code}>
         <PaginationSection
           totalPosts={42}

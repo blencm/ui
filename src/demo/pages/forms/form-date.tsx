@@ -5,19 +5,43 @@ import { z } from "zod";
 import { Button } from "@/components/Button/button";
 import { Form } from "@/components/Form/form";
 import { FormDate } from "@/components/Form/form-date";
+import { useCopy } from "../../i18n/copy";
+import { useDateFnsLocale } from "../../i18n/date-locale";
 import { DemoPage, DemoPreview } from "../../layout/DemoPage";
 
-const schema = z.object({
-  start_date: z.string().min(1, "Selecciona una fecha"),
-});
+export default function FormDateDemoPage() {
+  const dateLocale = useDateFnsLocale();
+  const t = useCopy({
+    en: {
+      requiredDate: "Select a date",
+      startDate: "Start date",
+      placeholder: "Select a date",
+      submit: "Submit",
+    },
+    es: {
+      requiredDate: "Selecciona una fecha",
+      startDate: "Fecha de inicio",
+      placeholder: "Seleccione una fecha",
+      submit: "Enviar",
+    },
+  });
 
-const code = `import { zodResolver } from '@hookform/resolvers/zod';
+  const schema = z.object({
+    start_date: z.string().min(1, t.requiredDate),
+  });
+
+  const form = useForm({
+    resolver: zodResolver(schema),
+    defaultValues: { start_date: "" },
+  });
+
+  const code = `import { zodResolver } from '@hookform/resolvers/zod';
 import { useForm } from 'react-hook-form';
 import { z } from 'zod';
 import { Button, Form, FormDate } from '@blencm/ui';
 
 const schema = z.object({
-  start_date: z.string().min(1, 'Selecciona una fecha')
+  start_date: z.string().min(1, '${t.requiredDate}')
 });
 
 export function FormDateDemo() {
@@ -35,27 +59,18 @@ export function FormDateDemo() {
       <FormDate
         control={form.control}
         name="start_date"
-        label="Fecha de inicio"
-        placeholder="Seleccione una fecha"
+        label="${t.startDate}"
+        placeholder="${t.placeholder}"
         valueMode="string"
         requiredLabel
       />
-      <Button type="submit">Enviar</Button>
+      <Button type="submit">${t.submit}</Button>
     </Form>
   );
 }`;
 
-export default function FormDateDemoPage() {
-  const form = useForm({
-    resolver: zodResolver(schema),
-    defaultValues: { start_date: "" },
-  });
-
   return (
-    <DemoPage
-      title="FormDate"
-      description="Selector de fecha ligado a React Hook Form."
-    >
+    <DemoPage title="FormDate">
       <DemoPreview code={code} className="max-w-sm">
         <Form
           methods={form}
@@ -65,12 +80,13 @@ export default function FormDateDemoPage() {
           <FormDate
             control={form.control}
             name="start_date"
-            label="Fecha de inicio"
-            placeholder="Seleccione una fecha"
+            label={t.startDate}
+            placeholder={t.placeholder}
+            locale={dateLocale}
             valueMode="string"
             requiredLabel
           />
-          <Button type="submit">Enviar</Button>
+          <Button type="submit">{t.submit}</Button>
         </Form>
       </DemoPreview>
     </DemoPage>

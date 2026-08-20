@@ -7,9 +7,23 @@ import {
   DialogTitle,
   DialogTrigger,
 } from "@/components/dialog";
+import { useCopy } from "../../i18n/copy";
 import { DemoPage, DemoPreview } from "../../layout/DemoPage";
 
-const code = `import {
+export default function DialogDemoPage() {
+  const t = useCopy({
+    en: {
+      open: "Open dialog",
+      title: "Create note",
+      body: "Use this area for a form, message, or confirmation.",
+    },
+    es: {
+      open: "Abrir dialog",
+      title: "Crear nota",
+      body: "Usa esta área para un formulario, mensaje o confirmación.",
+    },
+  });
+  const code = `import {
   Button,
   Dialog,
   DialogContent,
@@ -22,34 +36,31 @@ export function DialogDemo() {
   return (
     <Dialog>
       <DialogTrigger asChild>
-        <Button>Open dialog</Button>
+        <Button>${t.open}</Button>
       </DialogTrigger>
       <DialogContent>
         <DialogHeader>
-          <DialogTitle>Create note</DialogTitle>
+          <DialogTitle>${t.title}</DialogTitle>
         </DialogHeader>
         <p className="text-sm text-muted-foreground">
-          Use this area for a form, message, or confirmation content.
+          ${t.body}
         </p>
       </DialogContent>
     </Dialog>
   );
 }`;
 
-export default function DialogDemoPage() {
   return (
-    <DemoPage title="Dialog" description="Modal accesible basado en Radix Dialog.">
+    <DemoPage title="Dialog">
       <DemoPreview code={code}>
         <Dialog>
           <DialogTrigger asChild>
-            <Button>Abrir dialog</Button>
+            <Button>{t.open}</Button>
           </DialogTrigger>
           <DialogContent>
             <DialogHeader>
-              <DialogTitle>Crear nota</DialogTitle>
-              <DialogDescription>
-                Usa esta área para un formulario, mensaje o confirmación.
-              </DialogDescription>
+              <DialogTitle>{t.title}</DialogTitle>
+              <DialogDescription>{t.body}</DialogDescription>
             </DialogHeader>
           </DialogContent>
         </Dialog>

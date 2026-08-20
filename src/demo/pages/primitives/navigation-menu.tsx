@@ -6,9 +6,26 @@ import {
   NavigationMenuList,
   NavigationMenuTrigger,
 } from "@/components/navigation-menu";
+import { useCopy } from "../../i18n/copy";
 import { DemoPage, DemoPreview } from "../../layout/DemoPage";
 
-const code = `import {
+export default function NavigationMenuDemoPage() {
+  const t = useCopy({
+    en: {
+      products: "Products",
+      components: "Components",
+      forms: "Forms",
+      docs: "Docs",
+    },
+    es: {
+      products: "Productos",
+      components: "Componentes",
+      forms: "Formularios",
+      docs: "Docs",
+    },
+  });
+
+  const code = `import {
   NavigationMenu,
   NavigationMenuContent,
   NavigationMenuItem,
@@ -22,21 +39,21 @@ export function NavigationMenuDemo() {
     <NavigationMenu>
       <NavigationMenuList>
         <NavigationMenuItem>
-          <NavigationMenuTrigger>Productos</NavigationMenuTrigger>
+          <NavigationMenuTrigger>${t.products}</NavigationMenuTrigger>
           <NavigationMenuContent>
             <ul className="grid w-64 gap-2 p-3 text-sm">
               <li>
-                <NavigationMenuLink href="#">Componentes</NavigationMenuLink>
+                <NavigationMenuLink href="#">${t.components}</NavigationMenuLink>
               </li>
               <li>
-                <NavigationMenuLink href="#">Formularios</NavigationMenuLink>
+                <NavigationMenuLink href="#">${t.forms}</NavigationMenuLink>
               </li>
             </ul>
           </NavigationMenuContent>
         </NavigationMenuItem>
         <NavigationMenuItem>
           <NavigationMenuLink href="#" className="px-4 py-2 text-sm">
-            Docs
+            ${t.docs}
           </NavigationMenuLink>
         </NavigationMenuItem>
       </NavigationMenuList>
@@ -44,31 +61,27 @@ export function NavigationMenuDemo() {
   );
 }`;
 
-export default function NavigationMenuDemoPage() {
   return (
-    <DemoPage
-      title="NavigationMenu"
-      description="Menú de navegación con panel desplegable."
-    >
+    <DemoPage title="NavigationMenu">
       <DemoPreview code={code}>
         <NavigationMenu>
           <NavigationMenuList>
             <NavigationMenuItem>
-              <NavigationMenuTrigger>Productos</NavigationMenuTrigger>
+              <NavigationMenuTrigger>{t.products}</NavigationMenuTrigger>
               <NavigationMenuContent>
                 <ul className="grid w-64 gap-2 p-3 text-sm">
                   <li>
-                    <NavigationMenuLink href="#">Componentes</NavigationMenuLink>
+                    <NavigationMenuLink href="#">{t.components}</NavigationMenuLink>
                   </li>
                   <li>
-                    <NavigationMenuLink href="#">Formularios</NavigationMenuLink>
+                    <NavigationMenuLink href="#">{t.forms}</NavigationMenuLink>
                   </li>
                 </ul>
               </NavigationMenuContent>
             </NavigationMenuItem>
             <NavigationMenuItem>
               <NavigationMenuLink href="#" className="px-4 py-2 text-sm">
-                Docs
+                {t.docs}
               </NavigationMenuLink>
             </NavigationMenuItem>
           </NavigationMenuList>

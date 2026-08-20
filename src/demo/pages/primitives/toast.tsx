@@ -1,8 +1,26 @@
 import { Button } from "@/components/Button/button";
 import { useToast } from "@/components/use-toast";
+import { useCopy } from "../../i18n/copy";
 import { DemoPage, DemoPreview } from "../../layout/DemoPage";
 
-const code = `import { Button, useToast } from '@blencm/ui';
+export default function ToastDemoPage() {
+  const { toast } = useToast();
+  const t = useCopy({
+    en: {
+      show: "Show toast",
+      title: "Saved",
+      description: "Changes were saved successfully.",
+      comment: "Mount <Toaster /> once in the app layout.",
+    },
+    es: {
+      show: "Mostrar toast",
+      title: "Guardado",
+      description: "Los cambios se guardaron correctamente.",
+      comment: "Monta <Toaster /> una vez en el layout de la app.",
+    },
+  });
+
+  const code = `import { Button, useToast } from '@blencm/ui';
 
 export function ToastDemo() {
   const { toast } = useToast();
@@ -11,36 +29,30 @@ export function ToastDemo() {
     <Button
       onClick={() => {
         toast({
-          title: 'Guardado',
-          description: 'Los cambios se guardaron correctamente.'
+          title: '${t.title}',
+          description: '${t.description}'
         });
       }}
     >
-      Mostrar toast
+      ${t.show}
     </Button>
   );
 }
 
-// Monta <Toaster /> una vez en el layout de la app.`;
-
-export default function ToastDemoPage() {
-  const { toast } = useToast();
+// ${t.comment}`;
 
   return (
-    <DemoPage
-      title="Toast"
-      description="Notificaciones con useToast. El Toaster global está montado en el layout."
-    >
+    <DemoPage title="Toast">
       <DemoPreview code={code}>
         <Button
           onClick={() => {
             toast({
-              title: "Guardado",
-              description: "Los cambios se guardaron correctamente.",
+              title: t.title,
+              description: t.description,
             });
           }}
         >
-          Mostrar toast
+          {t.show}
         </Button>
       </DemoPreview>
     </DemoPage>

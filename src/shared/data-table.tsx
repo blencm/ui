@@ -365,6 +365,7 @@ export interface DataTableProps<TData extends RowData, TValue = unknown> {
   pageLabel?: string;
   ofLabel?: string;
 
+  totalLabel?: string;
   emptyData?: React.ReactNode;
 
   animate?: boolean;
@@ -413,6 +414,7 @@ function DataTable<TData extends RowData, TValue = unknown>({
   pageLabel = "Page",
   isRowsSelected = true,
   totalRows,
+  totalLabel = "records",
   rowsSelectedLabel = "row(s) selected",
 
   template = "neo",
@@ -630,7 +632,9 @@ function DataTable<TData extends RowData, TValue = unknown>({
                 </div>
               )}
               {typeof totalRows === "number" && (
-                <div>Total: {totalRows} registros</div>
+                <div>
+                  Total: {totalRows} {totalLabel}
+                </div>
               )}
             </div>
 

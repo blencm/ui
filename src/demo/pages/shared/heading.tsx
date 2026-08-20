@@ -1,28 +1,34 @@
 import { Heading } from "@/shared/heading";
+import { useCopy } from "../../i18n/copy";
 import { DemoPage, DemoPreview } from "../../layout/DemoPage";
 
-const code = `import { Heading } from '@blencm/ui';
+export default function HeadingDemoPage() {
+  const t = useCopy({
+    en: {
+      title: "Projects",
+      description: "Manage the active projects in the workspace.",
+    },
+    es: {
+      title: "Proyectos",
+      description: "Gestiona los proyectos activos del workspace.",
+    },
+  });
+
+  const code = `import { Heading } from '@blencm/ui';
 
 export function HeadingDemo() {
   return (
     <Heading
-      title="Proyectos"
-      description="Gestiona los proyectos activos del workspace."
+      title="${t.title}"
+      description="${t.description}"
     />
   );
 }`;
 
-export default function HeadingDemoPage() {
   return (
-    <DemoPage
-      title="Heading"
-      description="Título de página con descripción opcional."
-    >
+    <DemoPage title="Heading">
       <DemoPreview code={code}>
-        <Heading
-          title="Proyectos"
-          description="Gestiona los proyectos activos del workspace."
-        />
+        <Heading title={t.title} description={t.description} />
       </DemoPreview>
     </DemoPage>
   );

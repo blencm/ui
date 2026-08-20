@@ -9,10 +9,7 @@ export function DataTableSkeletonDemo() {
 
 export default function DataTableSkeletonDemoPage() {
   return (
-    <DemoPage
-      title="DataTableSkeleton"
-      description="Placeholder de carga para tablas."
-    >
+    <DemoPage title="DataTableSkeleton">
       <DemoPreview code={code}>
         <DataTableSkeleton columnCount={4} rowCount={5} />
       </DemoPreview>

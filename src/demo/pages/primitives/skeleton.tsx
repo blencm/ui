@@ -1,7 +1,8 @@
 import { Skeleton } from "@/components/skeleton";
 import { DemoPage, DemoPreview } from "../../layout/DemoPage";
 
-const code = `import { Skeleton } from '@blencm/ui';
+export default function SkeletonDemoPage() {
+  const code = `import { Skeleton } from '@blencm/ui';
 
 export function SkeletonDemo() {
   return (
@@ -15,9 +16,8 @@ export function SkeletonDemo() {
   );
 }`;
 
-export default function SkeletonDemoPage() {
   return (
-    <DemoPage title="Skeleton" description="Placeholder de carga.">
+    <DemoPage title="Skeleton">
       <DemoPreview code={code} className="flex items-center gap-4">
         <Skeleton className="h-12 w-12 rounded-full" />
         <div className="space-y-2">

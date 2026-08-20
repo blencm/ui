@@ -359,7 +359,7 @@ function WheelArrowIndicator() {
 
 function UiTime({
   label,
-  placeholder = "Seleccionar hora",
+  placeholder = "Select time",
   value,
   onChange,
   onBlur,

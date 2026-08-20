@@ -6,9 +6,15 @@ import {
   BreadcrumbPage,
   BreadcrumbSeparator,
 } from "@/components/breadcrumb";
+import { useCopy } from "../../i18n/copy";
 import { DemoPage, DemoPreview } from "../../layout/DemoPage";
 
-const code = `import {
+export default function BreadcrumbDemoPage() {
+  const t = useCopy({
+    en: { home: "Home", components: "Components" },
+    es: { home: "Inicio", components: "Componentes" },
+  });
+  const code = `import {
   Breadcrumb,
   BreadcrumbItem,
   BreadcrumbLink,
@@ -22,7 +28,7 @@ export function BreadcrumbDemo() {
     <Breadcrumb>
       <BreadcrumbList>
         <BreadcrumbItem>
-          <BreadcrumbLink href="#">Inicio</BreadcrumbLink>
+          <BreadcrumbLink href="#">${t.home}</BreadcrumbLink>
         </BreadcrumbItem>
         <BreadcrumbSeparator />
         <BreadcrumbItem>
@@ -33,21 +39,17 @@ export function BreadcrumbDemo() {
   );
 }`;
 
-export default function BreadcrumbDemoPage() {
   return (
-    <DemoPage
-      title="Breadcrumb"
-      description="Ruta de navegación jerárquica."
-    >
+    <DemoPage title="Breadcrumb">
       <DemoPreview code={code}>
         <Breadcrumb>
           <BreadcrumbList>
             <BreadcrumbItem>
-              <BreadcrumbLink href="#">Inicio</BreadcrumbLink>
+              <BreadcrumbLink href="#">{t.home}</BreadcrumbLink>
             </BreadcrumbItem>
             <BreadcrumbSeparator />
             <BreadcrumbItem>
-              <BreadcrumbLink href="#">Componentes</BreadcrumbLink>
+              <BreadcrumbLink href="#">{t.components}</BreadcrumbLink>
             </BreadcrumbItem>
             <BreadcrumbSeparator />
             <BreadcrumbItem>

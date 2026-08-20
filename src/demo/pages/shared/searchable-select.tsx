@@ -1,10 +1,54 @@
 import * as React from "react";
 
 import { SearchableSelect } from "@/components/searchable-select";
-import { COUNTRY_ITEMS } from "../../data";
+import { getCountryItems } from "../../data";
+import { useCopy } from "../../i18n/copy";
+import { useLocale } from "../../i18n/locale";
 import { DemoPage, DemoPreview } from "../../layout/DemoPage";
 
-const code = `import * as React from 'react';
+export default function SearchableSelectDemoPage() {
+  const { locale } = useLocale();
+  const countries = getCountryItems(locale);
+  const t = useCopy({
+    en: {
+      fruitPlaceholder: "Select a fruit",
+      fruitSearch: "Search fruit...",
+      apple: "Apple",
+      banana: "Banana",
+      orange: "Orange",
+      strawberry: "Strawberry",
+      countryPlaceholder: "Select a country",
+      countrySearch: "Search a country...",
+      noCountries: "No countries",
+    },
+    es: {
+      fruitPlaceholder: "Selecciona una fruta",
+      fruitSearch: "Buscar fruta...",
+      apple: "Manzana",
+      banana: "Plátano",
+      orange: "Naranja",
+      strawberry: "Fresa",
+      countryPlaceholder: "Selecciona un país",
+      countrySearch: "Buscar un país...",
+      noCountries: "No hay países",
+    },
+  });
+
+  const [fruit, setFruit] = React.useState("");
+  const [country, setCountry] = React.useState("");
+
+  const fruitItems = [
+    { label: t.apple, value: "apple", keywords: "fruit red green sweet manzana" },
+    { label: t.banana, value: "banana", keywords: "fruit yellow tropical platano" },
+    { label: t.orange, value: "orange", keywords: "fruit citrus vitamin c naranja" },
+    {
+      label: t.strawberry,
+      value: "strawberry",
+      keywords: "fruit berry red sweet fresa",
+    },
+  ];
+
+  const code = `import * as React from 'react';
 import { SearchableSelect } from '@blencm/ui';
 
 export function SearchableSelectDemo() {
@@ -14,49 +58,33 @@ export function SearchableSelectDemo() {
     <SearchableSelect
       value={fruit}
       onValueChange={setFruit}
-      placeholder="Select a fruit"
-      searchPlaceholder="Search fruit..."
+      placeholder="${t.fruitPlaceholder}"
+      searchPlaceholder="${t.fruitSearch}"
       items={[
-        { label: 'Apple', value: 'apple', keywords: 'fruit red green sweet' },
-        { label: 'Banana', value: 'banana', keywords: 'fruit yellow tropical' },
-        { label: 'Orange', value: 'orange', keywords: 'fruit citrus vitamin c' }
+        { label: '${t.apple}', value: 'apple', keywords: 'fruit red green sweet' },
+        { label: '${t.banana}', value: 'banana', keywords: 'fruit yellow tropical' },
+        { label: '${t.orange}', value: 'orange', keywords: 'fruit citrus vitamin c' }
       ]}
     />
   );
 }`;
 
-export default function SearchableSelectDemoPage() {
-  const [fruit, setFruit] = React.useState("");
-  const [country, setCountry] = React.useState("");
-
   return (
-    <DemoPage
-      title="SearchableSelect"
-      description="Select con buscador, portal y filtrado por keywords."
-    >
+    <DemoPage title="SearchableSelect">
       <DemoPreview code={code} className="max-w-sm space-y-6">
         <SearchableSelect
           value={fruit}
           onValueChange={setFruit}
-          placeholder="Select a fruit"
-          searchPlaceholder="Search fruit..."
-          items={[
-            { label: "Apple", value: "apple", keywords: "fruit red green sweet" },
-            { label: "Banana", value: "banana", keywords: "fruit yellow tropical" },
-            { label: "Orange", value: "orange", keywords: "fruit citrus vitamin c" },
-            {
-              label: "Strawberry",
-              value: "strawberry",
-              keywords: "fruit berry red sweet",
-            },
-          ]}
+          placeholder={t.fruitPlaceholder}
+          searchPlaceholder={t.fruitSearch}
+          items={fruitItems}
         />
         <SearchableSelect
-          items={COUNTRY_ITEMS}
+          items={countries}
           value={country}
-          placeholder="Select a country"
-          searchPlaceholder="Search a country..."
-          emptyText="No countries"
+          placeholder={t.countryPlaceholder}
+          searchPlaceholder={t.countrySearch}
+          emptyText={t.noCountries}
           onValueChange={setCountry}
         />
       </DemoPreview>

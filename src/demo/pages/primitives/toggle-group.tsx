@@ -1,26 +1,32 @@
 import { ToggleGroup, ToggleGroupItem } from "@/components/toggle-group";
+import { useCopy } from "../../i18n/copy";
 import { DemoPage, DemoPreview } from "../../layout/DemoPage";
 
-const code = `import { ToggleGroup, ToggleGroupItem } from '@blencm/ui';
+export default function ToggleGroupDemoPage() {
+  const t = useCopy({
+    en: { left: "Left", center: "Center", right: "Right" },
+    es: { left: "Izquierda", center: "Centro", right: "Derecha" },
+  });
+
+  const code = `import { ToggleGroup, ToggleGroupItem } from '@blencm/ui';
 
 export function ToggleGroupDemo() {
   return (
     <ToggleGroup type="single" defaultValue="center">
-      <ToggleGroupItem value="left">Izquierda</ToggleGroupItem>
-      <ToggleGroupItem value="center">Centro</ToggleGroupItem>
-      <ToggleGroupItem value="right">Derecha</ToggleGroupItem>
+      <ToggleGroupItem value="left">${t.left}</ToggleGroupItem>
+      <ToggleGroupItem value="center">${t.center}</ToggleGroupItem>
+      <ToggleGroupItem value="right">${t.right}</ToggleGroupItem>
     </ToggleGroup>
   );
 }`;
 
-export default function ToggleGroupDemoPage() {
   return (
-    <DemoPage title="ToggleGroup" description="Grupo de toggles con un valor compartido.">
+    <DemoPage title="ToggleGroup">
       <DemoPreview code={code}>
         <ToggleGroup type="single" defaultValue="center">
-          <ToggleGroupItem value="left">Izquierda</ToggleGroupItem>
-          <ToggleGroupItem value="center">Centro</ToggleGroupItem>
-          <ToggleGroupItem value="right">Derecha</ToggleGroupItem>
+          <ToggleGroupItem value="left">{t.left}</ToggleGroupItem>
+          <ToggleGroupItem value="center">{t.center}</ToggleGroupItem>
+          <ToggleGroupItem value="right">{t.right}</ToggleGroupItem>
         </ToggleGroup>
       </DemoPreview>
     </DemoPage>
