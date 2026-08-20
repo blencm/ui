@@ -1,0 +1,17 @@
+lib/*
+etc/*
+node_modules
+package-lock.json
+yarn.lock
+.DS_Store
+build/*
+npm-debug.log
+pnpm-debug.log*
+config.jsx
+!config.jsx.dist
+.idea
+babel.config.txt
+/dist
+demo-dist
+
+.env

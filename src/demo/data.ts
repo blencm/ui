@@ -1,0 +1,148 @@
+export const COUNTRY_ITEMS = [
+  { value: "es", label: "España", keywords: "spain espana madrid" },
+  { value: "pe", label: "Perú", keywords: "peru lima" },
+  { value: "cn", label: "China", keywords: "china beijing pekin" },
+  {
+    value: "us",
+    label: "Estados Unidos",
+    keywords: "usa united states estados unidos washington",
+  },
+  { value: "mx", label: "México", keywords: "mexico ciudad de mexico" },
+  { value: "ar", label: "Argentina", keywords: "argentina buenos aires" },
+  { value: "bo", label: "Bolivia", keywords: "bolivia la paz sucre" },
+  {
+    value: "br",
+    label: "Brasil",
+    keywords: "brazil brasil brasilia rio sao paulo",
+  },
+  { value: "cl", label: "Chile", keywords: "chile santiago" },
+  { value: "co", label: "Colombia", keywords: "colombia bogota" },
+  { value: "cr", label: "Costa Rica", keywords: "costa rica san jose" },
+  { value: "cu", label: "Cuba", keywords: "cuba habana la habana" },
+  {
+    value: "do",
+    label: "República Dominicana",
+    keywords: "dominican republic republica dominicana santo domingo",
+  },
+  { value: "ec", label: "Ecuador", keywords: "ecuador quito guayaquil" },
+  {
+    value: "gt",
+    label: "Guatemala",
+    keywords: "guatemala ciudad de guatemala",
+  },
+  { value: "hn", label: "Honduras", keywords: "honduras tegucigalpa" },
+  { value: "ni", label: "Nicaragua", keywords: "nicaragua managua" },
+  { value: "pa", label: "Panamá", keywords: "panama ciudad de panama" },
+  { value: "py", label: "Paraguay", keywords: "paraguay asuncion" },
+  { value: "uy", label: "Uruguay", keywords: "uruguay montevideo" },
+  { value: "ve", label: "Venezuela", keywords: "venezuela caracas" },
+
+  { value: "ca", label: "Canadá", keywords: "canada ottawa toronto montreal" },
+  { value: "fr", label: "Francia", keywords: "france francia paris" },
+  { value: "de", label: "Alemania", keywords: "germany alemania berlin" },
+  { value: "it", label: "Italia", keywords: "italy italia roma rome" },
+  { value: "pt", label: "Portugal", keywords: "portugal lisboa lisbon" },
+  {
+    value: "gb",
+    label: "Reino Unido",
+    keywords: "uk united kingdom reino unido londres london",
+  },
+  { value: "ie", label: "Irlanda", keywords: "ireland irlanda dublin" },
+  {
+    value: "nl",
+    label: "Países Bajos",
+    keywords: "netherlands paises bajos holanda amsterdam",
+  },
+  {
+    value: "be",
+    label: "Bélgica",
+    keywords: "belgium belgica bruselas brussels",
+  },
+  {
+    value: "ch",
+    label: "Suiza",
+    keywords: "switzerland suiza bern zurich ginebra",
+  },
+  { value: "at", label: "Austria", keywords: "austria viena vienna" },
+  {
+    value: "se",
+    label: "Suecia",
+    keywords: "sweden suecia estocolmo stockholm",
+  },
+  { value: "no", label: "Noruega", keywords: "norway noruega oslo" },
+  {
+    value: "dk",
+    label: "Dinamarca",
+    keywords: "denmark dinamarca copenhague copenhagen",
+  },
+  { value: "fi", label: "Finlandia", keywords: "finland finlandia helsinki" },
+  { value: "pl", label: "Polonia", keywords: "poland polonia varsovia warsaw" },
+  {
+    value: "ro",
+    label: "Rumanía",
+    keywords: "romania rumania bucarest bucharest",
+  },
+  { value: "gr", label: "Grecia", keywords: "greece grecia atenas athens" },
+  {
+    value: "tr",
+    label: "Turquía",
+    keywords: "turkey turquia ankara estambul istanbul",
+  },
+  { value: "ru", label: "Rusia", keywords: "russia rusia moscu moscow" },
+  { value: "ua", label: "Ucrania", keywords: "ukraine ucrania kiev kyiv" },
+
+  { value: "jp", label: "Japón", keywords: "japan japon tokio tokyo" },
+  {
+    value: "kr",
+    label: "Corea del Sur",
+    keywords: "south korea corea del sur seul seoul",
+  },
+  { value: "in", label: "India", keywords: "india nueva delhi new delhi" },
+  { value: "id", label: "Indonesia", keywords: "indonesia jakarta" },
+  { value: "th", label: "Tailandia", keywords: "thailand tailandia bangkok" },
+  { value: "vn", label: "Vietnam", keywords: "vietnam hanoi" },
+  { value: "ph", label: "Filipinas", keywords: "philippines filipinas manila" },
+  { value: "my", label: "Malasia", keywords: "malaysia malasia kuala lumpur" },
+  { value: "sg", label: "Singapur", keywords: "singapore singapur" },
+  {
+    value: "ae",
+    label: "Emiratos Árabes Unidos",
+    keywords: "uae emiratos arabes dubai abu dhabi",
+  },
+  {
+    value: "sa",
+    label: "Arabia Saudita",
+    keywords: "saudi arabia arabia saudita riyadh riad",
+  },
+  { value: "il", label: "Israel", keywords: "israel jerusalen tel aviv" },
+
+  {
+    value: "au",
+    label: "Australia",
+    keywords: "australia canberra sydney melbourne",
+  },
+  {
+    value: "nz",
+    label: "Nueva Zelanda",
+    keywords: "new zealand nueva zelanda wellington",
+  },
+
+  {
+    value: "ma",
+    label: "Marruecos",
+    keywords: "morocco marruecos rabat casablanca",
+  },
+  { value: "eg", label: "Egipto", keywords: "egypt egipto cairo el cairo" },
+  {
+    value: "za",
+    label: "Sudáfrica",
+    keywords: "south africa sudafrica pretoria cape town",
+  },
+  { value: "ng", label: "Nigeria", keywords: "nigeria abuja lagos" },
+];
+
+export const STATUS_OPTIONS = [
+  { label: "Todos", value: "all" },
+  { label: "Activos", value: "active" },
+  { label: "Inactivos", value: "inactive" },
+];
