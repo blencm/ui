@@ -118,7 +118,6 @@ export function DataTableDemo() {
         setPage(1);
       }}
       template="neo"
-      accent="primary"
       stickyHeader
       rowPerPageLabel="${t.rowsPerPage}"
       pageLabel="${t.page}"

@@ -13,7 +13,7 @@ export function AspectRatioDemo() {
   return (
     <AspectRatio ratio={16 / 9} className="bg-muted overflow-hidden rounded-md">
       <img
-        src="https://images.unsplash.com/photo-1588345921523-c2dcd7f4bd3c?w=800&q=80"
+        src="https://picsum.photos/800/600"
         alt="${t.alt}"
         className="h-full w-full object-cover"
       />
@@ -26,7 +26,7 @@ export function AspectRatioDemo() {
       <DemoPreview code={code} className="max-w-md">
         <AspectRatio ratio={16 / 9} className="bg-muted overflow-hidden rounded-md">
           <img
-            src="https://images.unsplash.com/photo-1588345921523-c2dcd7f4bd3c?w=800&q=80"
+            src="https://picsum.photos/800/600"
             alt={t.alt}
             className="h-full w-full object-cover"
           />

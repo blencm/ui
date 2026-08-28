@@ -484,6 +484,11 @@ function DataTable<TData extends RowData, TValue = unknown>({
   const dataAccent = accentOn ? "on" : "off";
 
   const headerIsSticky = stickyHeader && !headerScroll;
+  const isEmpty = table.getRowModel().rows.length === 0;
+
+  const emptyState = emptyData ?? (
+    <p className="text-muted-foreground">No results.</p>
+  );
 
   return (
     <div
@@ -495,7 +500,7 @@ function DataTable<TData extends RowData, TValue = unknown>({
           : undefined
       }
     >
-      <div className="min-h-0 flex-1">
+      <div className="relative min-h-0 flex-1">
         <ScrollArea className="h-full">
           <div className="relative w-max min-w-full">
             <Table className={cn(ui.table)}>
@@ -558,19 +563,7 @@ function DataTable<TData extends RowData, TValue = unknown>({
                             ))}
                           </TableRow>
                         ))
-                      : emptyData || (
-                          <TableRow data-accent={dataAccent}>
-                            <TableCell
-                              colSpan={columns.length}
-                              className={cn(
-                                ui.td,
-                                "text-muted-foreground h-28 text-center",
-                              )}
-                            >
-                              No results.
-                            </TableCell>
-                          </TableRow>
-                        )}
+                      : null}
                   </motion.tbody>
                 </AnimatePresence>
               ) : (
@@ -599,19 +592,7 @@ function DataTable<TData extends RowData, TValue = unknown>({
                           ))}
                         </TableRow>
                       ))
-                    : emptyData || (
-                        <TableRow data-accent={dataAccent}>
-                          <TableCell
-                            colSpan={columns.length}
-                            className={cn(
-                              ui.td,
-                              "text-muted-foreground h-28 text-center",
-                            )}
-                          >
-                            No results.
-                          </TableCell>
-                        </TableRow>
-                      )}
+                    : null}
                 </TableBody>
               )}
             </Table>
@@ -619,6 +600,13 @@ function DataTable<TData extends RowData, TValue = unknown>({
 
           <ScrollBar orientation="horizontal" />
         </ScrollArea>
+        {isEmpty ? (
+          <div className="bg-background pointer-events-none absolute inset-x-0 bottom-0 top-12 z-[5] flex w-full items-center justify-center p-8">
+            <div className="pointer-events-auto flex h-full w-full flex-col items-center justify-center text-center">
+              {emptyState}
+            </div>
+          </div>
+        ) : null}
       </div>
 
       <div className={cn(ui.footer)}>
