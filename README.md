@@ -24,8 +24,8 @@ pnpm add @blencm/ui
 React and React DOM are peer dependencies:
 
 ```text
-react >=17 <21
-react-dom >=17 <21
+react >=17
+react-dom >=17
 ```
 
 ---
