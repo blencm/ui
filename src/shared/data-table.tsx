@@ -601,7 +601,7 @@ function DataTable<TData extends RowData, TValue = unknown>({
           <ScrollBar orientation="horizontal" />
         </ScrollArea>
         {isEmpty ? (
-          <div className="bg-background pointer-events-none absolute inset-x-0 bottom-0 top-12 z-[5] flex w-full items-center justify-center p-8">
+          <div className="pointer-events-none absolute inset-x-0 bottom-0 top-12 z-[5] flex w-full items-center justify-center p-8">
             <div className="pointer-events-auto flex h-full w-full flex-col items-center justify-center text-center">
               {emptyState}
             </div>

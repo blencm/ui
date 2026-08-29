@@ -117,7 +117,7 @@ export function DataTableDemo() {
         setPerPage(size);
         setPage(1);
       }}
-      template="neo"
+      template="clean"
       stickyHeader
       rowPerPageLabel="${t.rowsPerPage}"
       pageLabel="${t.page}"
