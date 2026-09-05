@@ -1,6 +1,6 @@
 {
   "name": "@blencm/ui",
-  "version": "0.0.4",
+  "version": "0.0.5",
   "private": false,
   "author": "Bleker <bleker@blencm.com>",
   "description": "Installable React UI library built on Radix UI and Tailwind CSS. Accessible primitives, form helpers (React Hook Form + Zod), DataTable, SearchableSelect, date/time pickers, dialogs and toasts. Import from npm — no copy-paste into src/components.",

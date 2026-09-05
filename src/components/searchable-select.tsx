@@ -506,11 +506,17 @@ function SearchableSelectBase<TData = unknown>({
           classNameDefault
             ? cn(
                 formCompositeControlBase,
+                "[&_input]:appearance-none [&_input]:!border-none [&_input]:!shadow-none [&_input]:!outline-none [&_input]:!ring-0",
                 formCompositeVariants[variant],
                 triggerSizeClass,
                 invalid && formCompositeControlErrorClass,
                 disabled && "cursor-not-allowed opacity-50",
                 triggerClassName,
+                !invalid &&
+                  variant !== "flushed" &&
+                  variant !== "unstyled" &&
+                  variant !== "link" &&
+                  "focus-within:relative focus-within:z-10 focus-within:border-primary focus-within:ring-2 focus-within:ring-primary/20",
               )
             : triggerClassName
         }
@@ -523,6 +529,7 @@ function SearchableSelectBase<TData = unknown>({
       >
         <input
           ref={inputRef}
+          type="text"
           value={inputValue}
           role="combobox"
           aria-autocomplete="list"
@@ -588,7 +595,9 @@ function SearchableSelectBase<TData = unknown>({
             }
           }}
           className={cn(
-            "h-full min-w-0 flex-1 border-0 bg-transparent p-0 outline-none",
+            "min-h-0 min-w-0 flex-1 self-stretch bg-transparent p-0",
+            "appearance-none border-none shadow-none outline-none ring-0",
+            "focus:border-none focus:shadow-none focus:outline-none focus:ring-0",
             "placeholder:text-muted-foreground disabled:cursor-not-allowed",
             searchInputClassName,
           )}
