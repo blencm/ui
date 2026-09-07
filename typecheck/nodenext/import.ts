@@ -1,25 +1,10 @@
 import {
-  Avatar,
-  AvatarFallback,
+  Badge,
   Button,
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuLabel,
-  DropdownMenuSeparator,
-  DropdownMenuTrigger,
-  Input,
-} from "../../dist/index.js";
+  Label,
+  Skeleton,
+  Textarea,
+  UiSelect,
+} from "@blencm/ui";
 
-export {
-  Avatar,
-  AvatarFallback,
-  Button,
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuLabel,
-  DropdownMenuSeparator,
-  DropdownMenuTrigger,
-  Input,
-};
+export { Badge, Button, Label, Skeleton, Textarea, UiSelect };

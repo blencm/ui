@@ -138,7 +138,7 @@ function SearchableSelectBase<TData = unknown>({
   name,
   required,
   invalid = false,
-  size = "md",
+  size = "sm",
   customSize,
   variant = "outline",
   classNameDefault = true,
@@ -508,10 +508,10 @@ function SearchableSelectBase<TData = unknown>({
                 formCompositeControlBase,
                 "[&_input]:appearance-none [&_input]:!border-none [&_input]:!shadow-none [&_input]:!outline-none [&_input]:!ring-0",
                 formCompositeVariants[variant],
-                triggerSizeClass,
                 invalid && formCompositeControlErrorClass,
                 disabled && "cursor-not-allowed opacity-50",
                 triggerClassName,
+                triggerSizeClass,
                 !invalid &&
                   variant !== "flushed" &&
                   variant !== "unstyled" &&

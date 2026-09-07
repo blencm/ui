@@ -1,6 +1,14 @@
 import { spawnSync } from "node:child_process";
 import { createRequire } from "node:module";
-import { access, readdir, readFile, unlink, writeFile } from "node:fs/promises";
+import {
+  access,
+  mkdir,
+  readdir,
+  readFile,
+  symlink,
+  unlink,
+  writeFile,
+} from "node:fs/promises";
 import path from "node:path";
 import autoprefixer from "autoprefixer";
 import postcss from "postcss";
@@ -113,6 +121,21 @@ async function assertPublicTypes() {
       'dist/index.d.ts is missing "./components/dropdown-menu.js". NodeNext consumers will see TS2305.',
     );
   }
+
+  const pkg = JSON.parse(await readFile("package.json", "utf8"));
+  if (pkg.exports?.["."]?.types !== "./dist/index.d.ts") {
+    throw new Error(
+      'package.json exports["."].types must be "./dist/index.d.ts" or consumers will see TS2305.',
+    );
+  }
+}
+
+async function ensureConsumerPackageLink() {
+  const linkDir = path.join("typecheck", "nodenext", "node_modules", "@blencm");
+  const linkPath = path.join(linkDir, "ui");
+  await mkdir(linkDir, { recursive: true });
+  await unlink(linkPath).catch(() => undefined);
+  await symlink(path.resolve("."), path.resolve(linkPath), "junction");
 }
 
 function checkNodeNextConsumer() {
@@ -135,10 +158,15 @@ async function main() {
   await removeTsupCss();
   await rewriteDeclarationSpecifiers();
   await assertPublicTypes();
+  await ensureConsumerPackageLink();
   checkNodeNextConsumer();
 }
 
-main().catch((error) => {
-  console.error("❌ postbuild failed:", error);
-  process.exit(1);
-});
+main()
+  .then(() => {
+    process.exit(0);
+  })
+  .catch((error) => {
+    console.error("❌ postbuild failed:", error);
+    process.exit(1);
+  });
