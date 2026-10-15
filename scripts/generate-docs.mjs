@@ -1,6 +1,7 @@
 import fs from "node:fs";
 import path from "node:path";
 import ts from "typescript";
+import { compareNames, normalizeApiData, normalizeLineEndings } from "./docs-normalization.mjs";
 
 // Resolve the public barrel with the same compiler options as the library.
 const configPath = ts.findConfigFile(".", ts.sys.fileExists, "tsconfig.json");
@@ -124,9 +125,9 @@ for (const statement of entry.statements) {
         : stringify(type, declaration),
       ...(isType && declaration && (ts.isTypeAliasDeclaration(declaration) || ts.isInterfaceDeclaration(declaration))
         ? { definition: declaration.getText() } : {}),
-      props: [...merged.values()].sort((a, b) => Number(b.required) - Number(a.required) || a.name.localeCompare(b.name)),
+      props: [...merged.values()].sort((a, b) => Number(b.required) - Number(a.required) || compareNames(a.name, b.name)),
     };
-  }).sort((a, b) => a.name.localeCompare(b.name));
+  }).sort((a, b) => compareNames(a.name, b.name));
   modules.push({ source: sourcePath, exports });
 }
 
@@ -143,7 +144,8 @@ for (const kind of ["date", "time"]) {
   }));
 }
 // Keep the lazily loaded reference small; readable tables are emitted to Markdown below.
-const output = `${JSON.stringify({ modules, formats })}\n`;
+const normalizedApi = normalizeApiData({ modules, formats });
+const output = `${JSON.stringify(normalizedApi)}\n`;
 const outputs = new Map([["src/demo/docs/api.generated.json", output]]);
 
 async function loadContent(file) {
@@ -204,7 +206,7 @@ const cell = (value) => String(value).replaceAll("|", "\\|").replace(/\r?\n/g, "
 const table = (headings, rows) => `| ${headings.map(cell).join(" | ")} |\n| ${headings.map(() => "---").join(" | ")} |\n${rows.map(row => `| ${row.map(cell).join(" | ")} |`).join("\n")}\n`;
 const code = (value, language = "tsx") => `\n\`\`\`${language}\n${value}\n\`\`\`\n`;
 const reference = ["# Public API reference\n", "Generated from `src/index.ts`. Run `pnpm docs:generate` to refresh.\n", "Standard native DOM attributes are omitted from prop tables. Local defaults are extracted from destructuring and CVA defaults; a dash means none was declared locally. Dependency defaults can still apply. Requirements for union props depend on the selected mode.\n"];
-for (const module of modules) {
+for (const module of normalizedApi.modules) {
   reference.push(`## ${module.source}\n`);
   for (const entry of module.exports) {
     reference.push(`<a id="${entry.name.toLowerCase()}"></a>\n\n### ${entry.name}\n\n${entry.kind}\n`);
@@ -239,9 +241,10 @@ for (const guide of guides) {
 }
 outputs.set("docs/README.md", `# Documentation\n\n[Component usage](./components.md) · [Complete API reference](./api-reference.md)\n\n${guides.map(guide => `- [${guide.title}](./guides/${guide.slug}.md) — ${guide.description}`).join("\n")}\n\nThe website and these Markdown references share the same guide content. To update documentation, edit src/demo/docs/guides.ts or component-notes.ts, then run pnpm docs:generate. API metadata comes from the public source exports.\n`);
 const stale = [];
-for (const [destination, content] of outputs) {
+for (const [destination, generated] of outputs) {
+  const content = normalizeLineEndings(generated);
   if (process.argv.includes("--check")) {
-    if (!fs.existsSync(destination) || fs.readFileSync(destination, "utf8") !== content) stale.push(destination);
+    if (!fs.existsSync(destination) || normalizeLineEndings(fs.readFileSync(destination, "utf8")) !== content) stale.push(destination);
   } else {
     fs.mkdirSync(path.dirname(destination), { recursive: true });
     fs.writeFileSync(destination, content);

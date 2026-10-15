@@ -85,7 +85,7 @@
   "scripts": {
     "dev": "vite",
     "docs:generate": "node scripts/generate-docs.mjs",
-    "docs:check": "node scripts/generate-docs.mjs --check",
+    "docs:check": "node --test scripts/docs-normalization.test.mjs && node scripts/generate-docs.mjs --check",
     "build": "rimraf ./dist && tsup && tsc -p tsconfig.lib.json && node scripts/postbuild.js",
     "test": "cross-env NODE_ENV=test jest",
     "lint": "eslint .",

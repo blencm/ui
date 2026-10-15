@@ -1,2 +1,6 @@
 # Auto detect text files and perform LF normalization
 * text=auto
+
+# Keep generated documentation identical on Windows and Linux checkouts.
+src/demo/docs/api.generated.json text eol=lf
+docs/**/*.md text eol=lf

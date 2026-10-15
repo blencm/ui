@@ -641,6 +641,7 @@ component
 
 | Property | Type | Required | Local default | Description |
 | --- | --- | --- | --- | --- |
+| `ISOWeek` | `boolean \| undefined` | No | — | Use ISO week dates instead of the locale setting. Setting this prop will<br>ignore `weekStartsOn` and `firstWeekContainsDate`. |
 | `animate` | `boolean \| undefined` | No | — | Animate navigating between months. |
 | `aria-label` | `string` | No | — | The aria-label attribute to add to the container element. |
 | `aria-labelledby` | `string` | No | — | The aria-labelledby attribute to add to the container element. |
@@ -653,8 +654,8 @@ component
 | `dateLib` | `Partial<typeof DateLib.prototype> \| undefined` | No | — | Replace the default date library with a custom one. Experimental: not<br>guaranteed to be stable (may not respect semver). |
 | `defaultMonth` | `Date` | No | — | The initial month to show in the calendar.<br><br>Use this prop to let DayPicker control the current month. If you need to<br>set the month programmatically, use {@link month} and {@link onMonthChange}. |
 | `dir` | `HTMLDivElement["dir"]` | No | — | The text direction of the calendar. Use `ltr` for left-to-right (default)<br>or `rtl` for right-to-left. |
-| `disabled` | `Matcher \| Matcher[] \| undefined` | No | — | Apply the `disabled` modifier to the matching days. Disabled days cannot be<br>selected when in a selection mode is set. |
 | `disableNavigation` | `boolean \| undefined` | No | — | Disable the navigation between months. This prop won't hide the navigation:<br>to hide the navigation, use {@link hideNavigation}. |
+| `disabled` | `Matcher \| Matcher[] \| undefined` | No | — | Apply the `disabled` modifier to the matching days. Disabled days cannot be<br>selected when in a selection mode is set. |
 | `endMonth` | `Date` | No | — | The latest month to end the month navigation. |
 | `excludeDisabled` | `boolean \| undefined` | No | — | When `true`, the range will reset when including a disabled day. |
 | `firstWeekContainsDate` | `1 \| 4 \| undefined` | No | — | The day of January that is always in the first week of the year. |
@@ -665,7 +666,6 @@ component
 | `hideNavigation` | `boolean \| undefined` | No | — | Hide the navigation buttons. This prop won't disable the navigation: to<br>disable the navigation, use {@link disableNavigation}. |
 | `hideWeekdays` | `boolean \| undefined` | No | — | Hide the row displaying the weekday row header. |
 | `id` | `string` | No | — | A unique id to add to the root element. |
-| `ISOWeek` | `boolean \| undefined` | No | — | Use ISO week dates instead of the locale setting. Setting this prop will<br>ignore `weekStartsOn` and `firstWeekContainsDate`. |
 | `labels` | `Partial<Labels>` | No | — | Labels creators to override the defaults. Use this prop to customize the<br>aria-label attributes in DayPicker. |
 | `lang` | `HTMLDivElement["lang"]` | No | — | Add the language tag to the container element.<br><br>When omitted, DayPicker uses the active locale code (`locale.code`). Set<br>this prop to override the language tag. |
 | `locale` | `Partial<DayPickerLocale> \| undefined` | No | — | The locale object used to localize dates. Pass a locale from<br>`react-day-picker/locale/<code>` to localize the calendar. |
@@ -2561,9 +2561,9 @@ component
 | `requiredLabel` | `boolean \| undefined` | No | — | Show a required marker. Enforce validation with a schema, rules or native required. |
 | `requiredLabelClassName` | `string` | No | — | Additional classes for this named part of the component. |
 | `rules` | `FieldRules<TFieldValues, TName>` | No | — | React Hook Form validation rules for this field. |
-| `searchable` | `boolean \| undefined` | No | `false` | Enable the searchable option picker instead of the standard select. |
 | `searchInputClassName` | `string` | No | — | Additional classes for this named part of the component. |
 | `searchPlaceholder` | `string` | No | `"Search…"` | Hint inside the option search input. |
+| `searchable` | `boolean \| undefined` | No | `false` | Enable the searchable option picker instead of the standard select. |
 | `shouldUnregister` | `boolean \| undefined` | No | — | Remove the field from form state when it unmounts. |
 | `size` | `SizeProps \| undefined` | No | `"sm"` | Control dimensions. The type lists supported size names for this component. |
 | `variant` | `import("../..").FormInputVariantProps \| undefined` | No | `"outline"` | Visual style. The type lists supported variants for this component. |
@@ -2742,8 +2742,8 @@ component
 | `defaultMonth` | `Date` | No | — |  |
 | `defaultValue` | `FieldPathValue<TFieldValues, TName>` | No | — | Initial value for uncontrolled use. Later changes do not replace controlled state. |
 | `disabled` | `boolean \| undefined` | No | — | Disable interaction with this control. |
-| `end_date` | `DateInputValue` | No | — | Supported alias for the latest selectable date. |
 | `endDate` | `DateInputValue` | No | — | Latest selectable date. Takes precedence over end_date. |
+| `end_date` | `DateInputValue` | No | — | Supported alias for the latest selectable date. |
 | `formatPattern` | `string` | No | — | Explicit display pattern; takes precedence over the display format preset. |
 | `invalid` | `boolean \| undefined` | No | — | Apply error styling; supply a useful error message separately. |
 | `itemClassName` | `string` | No | — | Additional classes for this named part of the component. |
@@ -2759,8 +2759,8 @@ component
 | `rules` | `FieldRules<TFieldValues, TName>` | No | — | React Hook Form validation rules for this field. |
 | `shouldUnregister` | `boolean \| undefined` | No | — | Remove the field from form state when it unmounts. |
 | `size` | `SizeProps \| undefined` | No | `"sm"` | Control dimensions. The type lists supported size names for this component. |
-| `start_date` | `DateInputValue` | No | — | Rango permitido.<br>Si es null o undefined, queda libre. |
 | `startDate` | `DateInputValue` | No | — | Alias opcional. |
+| `start_date` | `DateInputValue` | No | — | Rango permitido.<br>Si es null o undefined, queda libre. |
 | `valueFormat` | `DateFormatValue` | No | `"iso"` | Pattern or preset used to parse incoming strings and format string-mode form values. |
 | `valueFormatPattern` | `string` | No | — | Explicit value parsing/storage pattern; takes precedence over valueFormat. |
 | `valueMode` | `DateValueMode \| undefined` | No | `"date"` | date: stores a Date.<br>string: stores a string using valueFormat. |
@@ -2905,65 +2905,6 @@ type
 export type CustomSize = Partial<SizeClasses>;
 ```
 
-<a id="formcompositecontrolbase"></a>
-
-### formCompositeControlBase
-
-value
-
-
-```ts
-formCompositeControlBase: "relative flex w-full items-center gap-2 text-foreground outline-none transition"
-```
-
-<a id="formcompositecontrolerrorclass"></a>
-
-### formCompositeControlErrorClass
-
-value
-
-
-```ts
-formCompositeControlErrorClass: "border-destructive focus-within:border-destructive focus-within:ring-destructive/20"
-```
-
-<a id="formcompositevariants"></a>
-
-### formCompositeVariants
-
-value
-
-Equivalent variants for composite controls:
-SearchableSelect, comboboxes, and wrappers with an internal input.
-Use focus-within because the input receives focus inside the wrapper.
-
-
-```ts
-formCompositeVariants: Record<FormInputVariantProps, string>
-```
-
-<a id="formcontrolbase"></a>
-
-### formControlBase
-
-value
-
-
-```ts
-formControlBase: "relative inline-flex w-full items-center justify-between gap-2 text-foreground outline-none transition data-[placeholder]:text-muted-foreground disabled:cursor-not-allowed disabled:opacity-50"
-```
-
-<a id="formcontrolerrorclass"></a>
-
-### formControlErrorClass
-
-value
-
-
-```ts
-formControlErrorClass: "border-destructive focus:border-destructive focus:ring-destructive/20"
-```
-
 <a id="forminputvariantprops"></a>
 
 ### FormInputVariantProps
@@ -2982,17 +2923,6 @@ export type FormInputVariantProps =
   | "link";
 ```
 
-<a id="forminputvariants"></a>
-
-### formInputVariants
-
-value
-
-
-```ts
-formInputVariants: Record<FormInputVariantProps, string>
-```
-
 <a id="formsizeprops"></a>
 
 ### FormSizeProps
@@ -3006,17 +2936,6 @@ Backward-compatible aliases.
 export type FormSizeProps = SizeProps;
 ```
 
-<a id="formsizevariants"></a>
-
-### formSizeVariants
-
-value
-
-
-```ts
-formSizeVariants: Record<SizeProps, SizeClasses>
-```
-
 <a id="formvariantprops"></a>
 
 ### FormVariantProps
@@ -3026,28 +2945,6 @@ type
 
 ```ts
 export type FormVariantProps = VariantProps;
-```
-
-<a id="getformcontrolsizeclass"></a>
-
-### getFormControlSizeClass
-
-function
-
-
-```ts
-getFormControlSizeClass: (variant: VariantProps, sizeClasses: SizeClasses): string
-```
-
-<a id="getformsizeclasses"></a>
-
-### getFormSizeClasses
-
-function
-
-
-```ts
-getFormSizeClasses: (size?: SizeProps, customSize?: CustomSize): SizeClasses
 ```
 
 <a id="inputvariant"></a>
@@ -3118,6 +3015,109 @@ type
 
 ```ts
 export type VariantProps = InputVariant;
+```
+
+<a id="formcompositecontrolbase"></a>
+
+### formCompositeControlBase
+
+value
+
+
+```ts
+formCompositeControlBase: "relative flex w-full items-center gap-2 text-foreground outline-none transition"
+```
+
+<a id="formcompositecontrolerrorclass"></a>
+
+### formCompositeControlErrorClass
+
+value
+
+
+```ts
+formCompositeControlErrorClass: "border-destructive focus-within:border-destructive focus-within:ring-destructive/20"
+```
+
+<a id="formcompositevariants"></a>
+
+### formCompositeVariants
+
+value
+
+Equivalent variants for composite controls:
+SearchableSelect, comboboxes, and wrappers with an internal input.
+Use focus-within because the input receives focus inside the wrapper.
+
+
+```ts
+formCompositeVariants: Record<FormInputVariantProps, string>
+```
+
+<a id="formcontrolbase"></a>
+
+### formControlBase
+
+value
+
+
+```ts
+formControlBase: "relative inline-flex w-full items-center justify-between gap-2 text-foreground outline-none transition data-[placeholder]:text-muted-foreground disabled:cursor-not-allowed disabled:opacity-50"
+```
+
+<a id="formcontrolerrorclass"></a>
+
+### formControlErrorClass
+
+value
+
+
+```ts
+formControlErrorClass: "border-destructive focus:border-destructive focus:ring-destructive/20"
+```
+
+<a id="forminputvariants"></a>
+
+### formInputVariants
+
+value
+
+
+```ts
+formInputVariants: Record<FormInputVariantProps, string>
+```
+
+<a id="formsizevariants"></a>
+
+### formSizeVariants
+
+value
+
+
+```ts
+formSizeVariants: Record<SizeProps, SizeClasses>
+```
+
+<a id="getformcontrolsizeclass"></a>
+
+### getFormControlSizeClass
+
+function
+
+
+```ts
+getFormControlSizeClass: (variant: VariantProps, sizeClasses: SizeClasses): string
+```
+
+<a id="getformsizeclasses"></a>
+
+### getFormSizeClasses
+
+function
+
+
+```ts
+getFormSizeClasses: (size?: SizeProps, customSize?: CustomSize): SizeClasses
 ```
 
 <a id="variants"></a>
@@ -3273,8 +3273,8 @@ component
 | --- | --- | --- | --- | --- |
 | `maxLength` | `number` | Yes | — |  |
 | `containerClassName` | `string` | No | — | Additional classes for this named part of the component. |
-| `nonce` | `string` | No | — |  |
 | `noScriptCSSFallback` | `string \| null` | No | — |  |
+| `nonce` | `string` | No | — |  |
 | `onChange` | `(newValue: string) => unknown` | No | — | Change callback. Check the type: standalone inputs emit events; wrappers may emit values or dates. |
 | `onComplete` | `(...args: any[]) => unknown` | No | — | Event callback. The type specifies the event or value supplied to your handler. |
 | `pasteTransformer` | `(pasted: string) => string` | No | — |  |
@@ -3481,7 +3481,7 @@ component
 
 
 ```ts
-MenubarMenu: (props: MenubarPrimitive.MenubarMenuProps & { __scopeMenubar?: import(".pnpm/@radix-ui+react-context@1.3_f5e7faa335a2377b2de19422090f7bda/node_modules/@radix-ui/react-context").Scope | undefined; }) => React.JSX.Element
+MenubarMenu: (props: MenubarPrimitive.MenubarMenuProps & { __scopeMenubar?: import("@radix-ui/react-context").Scope | undefined; }) => React.JSX.Element
 ```
 
 <a id="menubarportal"></a>
@@ -3792,17 +3792,6 @@ component
 NavigationMenuTrigger: React.ForwardRefExoticComponent<Omit<NavigationMenuPrimitive.NavigationMenuTriggerProps & React.RefAttributes<HTMLButtonElement>, "ref"> & React.RefAttributes<HTMLButtonElement>>
 ```
 
-<a id="navigationmenutriggerstyle"></a>
-
-### navigationMenuTriggerStyle
-
-function
-
-
-```ts
-navigationMenuTriggerStyle: (props?: import("class-variance-authority/types").ClassProp | undefined): string
-```
-
 <a id="navigationmenuviewport"></a>
 
 ### NavigationMenuViewport
@@ -3817,6 +3806,17 @@ component
 
 ```ts
 NavigationMenuViewport: React.ForwardRefExoticComponent<Omit<NavigationMenuPrimitive.NavigationMenuViewportProps & React.RefAttributes<HTMLDivElement>, "ref"> & React.RefAttributes<HTMLDivElement>>
+```
+
+<a id="navigationmenutriggerstyle"></a>
+
+### navigationMenuTriggerStyle
+
+function
+
+
+```ts
+navigationMenuTriggerStyle: (props?: import("class-variance-authority/types").ClassProp | undefined): string
 ```
 
 ## src/components/pagination.tsx
@@ -4107,8 +4107,8 @@ component
 | Property | Type | Required | Local default | Description |
 | --- | --- | --- | --- | --- |
 | `className` | `string \| undefined` | No | — | CSS class name.<br><br>ℹ️ Use the `data-separator` attribute for custom _hover_ and _active_ styles<br><br>⚠️ The following properties cannot be overridden: `flex-grow`, `flex-shrink` |
-| `disabled` | `boolean \| undefined` | No | — | When disabled, the separator cannot be used to resize its neighboring panels.<br><br>ℹ️ The panels may still be resized indirectly (while other panels are being resized).<br>To prevent a panel from being resized at all, it needs to also be disabled. |
 | `disableDoubleClick` | `boolean \| undefined` | No | — | When true, double-clicking this `Separator` will not reset its `Panel` to its default size. |
+| `disabled` | `boolean \| undefined` | No | — | When disabled, the separator cannot be used to resize its neighboring panels.<br><br>ℹ️ The panels may still be resized indirectly (while other panels are being resized).<br>To prevent a panel from being resized at all, it needs to also be disabled. |
 | `elementRef` | `Ref<HTMLDivElement> \| undefined` | No | — | Ref attached to the root `HTMLDivElement`. |
 | `id` | `string \| number \| undefined` | No | — | Uniquely identifies the separator within the parent group.<br>Falls back to `useId` when not provided.<br><br>ℹ️ This value will also be assigned to the `id` and `data-testid` attributes; (an explicit `data-testid` prop will take precedence). |
 | `preview` | `ReactNode` | No | — | Overrides the `Group` default preview for this `Separator` when `resizePreviewMode` is "separator". |
@@ -5822,8 +5822,8 @@ component
 | `dateFormat` | `DateFormatValue` | No | `"demo"` | Display date format preset or date-fns pattern. |
 | `defaultMonth` | `Date` | No | — |  |
 | `disabled` | `boolean \| undefined` | No | — | Disable interaction with this control. |
-| `end_date` | `DateInputValue` | No | — | Supported alias for the latest selectable date. |
 | `endDate` | `DateInputValue` | No | — | Latest selectable date. Takes precedence over end_date. |
+| `end_date` | `DateInputValue` | No | — | Supported alias for the latest selectable date. |
 | `errorMessage` | `string` | No | — | Visible validation feedback; also activates error styling where supported. |
 | `formatPattern` | `string` | No | — | Explicit display pattern; takes precedence over the display format preset. |
 | `htmlFormItemId` | `string` | No | — | Stable id used to connect the control to its label and messages. |
@@ -5838,8 +5838,8 @@ component
 | `requiredLabel` | `boolean \| undefined` | No | — | Show a required marker. Enforce validation with a schema, rules or native required. |
 | `requiredLabelClassName` | `string` | No | — | Additional classes for this named part of the component. |
 | `size` | `SizeProps \| undefined` | No | `"sm"` | Control dimensions. The type lists supported size names for this component. |
-| `start_date` | `DateInputValue` | No | — | Supported alias for the earliest selectable date. |
 | `startDate` | `DateInputValue` | No | — | Earliest selectable date. Takes precedence over start_date. |
+| `start_date` | `DateInputValue` | No | — | Supported alias for the earliest selectable date. |
 | `value` | `Date \| string \| null` | No | — | Current controlled value. Update it from the corresponding change callback. |
 | `valueFormat` | `DateFormatValue` | No | `"iso"` | Pattern or preset used to parse incoming strings and format string-mode form values. |
 | `valueFormatPattern` | `string` | No | — | Explicit value parsing/storage pattern; takes precedence over valueFormat. |
@@ -6324,17 +6324,6 @@ export type DataTableColumnDef<TData extends RowData, TValue = unknown> = Column
 
 <a id="datatablefeatures"></a>
 
-### dataTableFeatures
-
-value
-
-
-```ts
-dataTableFeatures: { columnVisibilityFeature: import("@tanstack/react-table").TableFeature; rowPaginationFeature: import("@tanstack/react-table").TableFeature; rowSelectionFeature: import("@tanstack/react-table").TableFeature; }
-```
-
-<a id="datatablefeatures"></a>
-
 ### DataTableFeatures
 
 type
@@ -6436,6 +6425,17 @@ export type DataTableSlots = Partial<{
 
   navButton: string;
 }>;
+```
+
+<a id="datatablefeatures"></a>
+
+### dataTableFeatures
+
+value
+
+
+```ts
+dataTableFeatures: { columnVisibilityFeature: import("@tanstack/react-table").TableFeature; rowPaginationFeature: import("@tanstack/react-table").TableFeature; rowSelectionFeature: import("@tanstack/react-table").TableFeature; }
 ```
 
 ## src/shared/data-table-skeleton.tsx
