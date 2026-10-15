@@ -14,12 +14,6 @@ export default function ModalDemoPage() {
       description: "A controlled modal with isOpen / onClose.",
       body: "Modal content.",
     },
-    es: {
-      open: "Abrir modal",
-      title: "Detalles",
-      description: "Un modal controlado con isOpen / onClose.",
-      body: "Contenido del modal.",
-    },
   });
 
   const code = `import * as React from 'react';

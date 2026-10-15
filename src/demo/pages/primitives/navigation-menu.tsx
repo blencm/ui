@@ -17,12 +17,6 @@ export default function NavigationMenuDemoPage() {
       forms: "Forms",
       docs: "Docs",
     },
-    es: {
-      products: "Productos",
-      components: "Componentes",
-      forms: "Formularios",
-      docs: "Docs",
-    },
   });
 
   const code = `import {

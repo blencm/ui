@@ -22,52 +22,56 @@ function PaginationSection({
   currentPage,
   setCurrentPage,
 }: TPaginationSectionProps) {
-  const pageNumbers: number[] = [];
-  for (let i = 1; i <= Math.ceil(totalPosts / postsPerPage); i++) {
-    pageNumbers.push(i);
-  }
+  const pageCount =
+    Number.isFinite(totalPosts) && Number.isFinite(postsPerPage) && postsPerPage > 0
+      ? Math.max(0, Math.ceil(totalPosts / postsPerPage))
+      : 0;
+  const page = Number.isFinite(currentPage)
+    ? Math.min(Math.max(1, Math.floor(currentPage)), Math.max(1, pageCount))
+    : 1;
 
   const maxPageNum = 2; // Maximum page numbers to display at once
   const pageNumLimit = Math.floor(maxPageNum / 2); // Current page should be in the middle if possible
 
-  const activePages = pageNumbers.slice(
-    Math.max(0, currentPage - 1 - pageNumLimit),
-    Math.min(currentPage - 1 + pageNumLimit + 1, pageNumbers.length)
+  const firstPage = Math.max(1, page - pageNumLimit);
+  const lastPage = Math.min(pageCount, page + pageNumLimit);
+  const activePages = Array.from(
+    { length: Math.max(0, lastPage - firstPage + 1) },
+    (_, index) => firstPage + index,
   );
 
   const handleNextPage = () => {
-    if (currentPage < pageNumbers.length) {
-      setCurrentPage(currentPage + 1);
+    if (page < pageCount) {
+      setCurrentPage(page + 1);
     }
   };
 
   const handlePrevPage = () => {
-    if (currentPage > 1) {
-      setCurrentPage(currentPage - 1);
+    if (page > 1) {
+      setCurrentPage(page - 1);
     }
   };
 
   const handlePrevPageLast = () => {
-    if (currentPage > 1) {
+    if (page > 1) {
       setCurrentPage(1);
     }
   };
 
   const handleNextPageLast = () => {
-    if (currentPage < pageNumbers.length) {
-      setCurrentPage(pageNumbers.length);
+    if (page < pageCount) {
+      setCurrentPage(pageCount);
     }
   };
 
   // Function to render page numbers with ellipsis
   const renderPages = () => {
-    const renderedPages = activePages.map((page, idx) => (
+    const renderedPages = activePages.map((pageNumber) => (
       <PaginationItem
-        key={idx}
-        className={currentPage === page ? "rounded-md bg-primary" : ""}
+        key={pageNumber}
       >
-        <PaginationLink onClick={() => setCurrentPage(page)} size={undefined}>
-          {page}
+        <PaginationLink isActive={page === pageNumber} onClick={() => setCurrentPage(pageNumber)} size={undefined}>
+          {pageNumber}
         </PaginationLink>
       </PaginationItem>
     ));
@@ -83,7 +87,7 @@ function PaginationSection({
     }
 
     // Add ellipsis at the end if necessary
-    if (activePages[activePages.length - 1] < pageNumbers.length) {
+    if (activePages[activePages.length - 1] < pageCount) {
       renderedPages.push(
         <PaginationEllipsis
           key="ellipsis-end"

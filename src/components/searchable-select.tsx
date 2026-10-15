@@ -24,7 +24,10 @@ type SearchableSelectOption<TData = unknown> = {
   data?: TData;
 };
 
-type SearchableSelectProps<TData = unknown> = {
+type SearchableSelectProps<TData = unknown> = Pick<
+  React.InputHTMLAttributes<HTMLInputElement>,
+  "id" | "aria-label" | "aria-labelledby" | "aria-describedby" | "onBlur"
+> & {
   items: SearchableSelectOption<TData>[];
 
   value?: string;
@@ -92,7 +95,7 @@ function getNextEnabledIndex<TData>(
 ) {
   if (!items.length) return -1;
 
-  let nextIndex = currentIndex;
+  let nextIndex = currentIndex < 0 && direction === -1 ? 0 : currentIndex;
 
   for (let index = 0; index < items.length; index += 1) {
     nextIndex = (nextIndex + direction + items.length) % items.length;
@@ -146,7 +149,8 @@ function SearchableSelectBase<TData = unknown>({
   contentClassName,
   itemClassName,
   searchInputClassName,
-}: SearchableSelectProps<TData>) {
+  ...inputProps
+}: SearchableSelectProps<TData>, ref: React.ForwardedRef<HTMLInputElement>) {
   const rootRef = React.useRef<HTMLDivElement | null>(null);
   const inputRef = React.useRef<HTMLInputElement | null>(null);
   const contentRef = React.useRef<HTMLDivElement | null>(null);
@@ -175,8 +179,7 @@ function SearchableSelectBase<TData = unknown>({
   const [activeIndex, setActiveIndex] = React.useState(-1);
   const [contentStyle, setContentStyle] = React.useState<React.CSSProperties>();
 
-  // FIX 1: useLayoutEffect en lugar de useEffect para que mounted se establezca
-  // de forma síncrona antes del primer paint, eliminando el ciclo extra de render.
+  // Set mounted before the first paint to avoid an extra render cycle.
   React.useLayoutEffect(() => {
     setMounted(true);
   }, []);
@@ -287,18 +290,14 @@ function SearchableSelectBase<TData = unknown>({
     });
   }, [disabled, open]);
 
-  // FIX 2: Resetear contentStyle cuando se cierra el dropdown.
-  // Esto garantiza que al volver a abrir siempre se recalcule la posición
-  // desde cero, evitando que se reutilice un valor stale de una apertura anterior.
+  // Clear the dropdown position on close so each opening recalculates it.
   React.useLayoutEffect(() => {
     if (!open) {
       setContentStyle(undefined);
     }
   }, [open]);
 
-  // FIX 3: Este useLayoutEffect corre DESPUÉS del reset de arriba (mismo dep: open).
-  // React garantiza que los useLayoutEffect se ejecutan en orden de declaración,
-  // por lo que primero se borra contentStyle y luego se recalcula.
+  // Layout effects run in declaration order, so positioning follows the reset.
   React.useLayoutEffect(() => {
     if (!open) return;
 
@@ -334,11 +333,16 @@ function SearchableSelectBase<TData = unknown>({
   }, [open, scheduleUpdatePosition, updatePosition]);
 
   React.useEffect(() => {
-    if (!open) return;
+    if (!open) {
+      setActiveIndex(-1);
+      return;
+    }
 
     const firstEnabledIndex = filteredItems.findIndex((item) => !item.disabled);
     setActiveIndex((previousIndex) =>
-      previousIndex === firstEnabledIndex ? previousIndex : firstEnabledIndex,
+      previousIndex >= 0 && filteredItems[previousIndex] && !filteredItems[previousIndex].disabled
+        ? previousIndex
+        : firstEnabledIndex,
     );
   }, [filteredItems, open]);
 
@@ -528,7 +532,12 @@ function SearchableSelectBase<TData = unknown>({
         }}
       >
         <input
-          ref={inputRef}
+          {...inputProps}
+          ref={(node) => {
+            inputRef.current = node;
+            if (typeof ref === "function") ref(node);
+            else if (ref) ref.current = node;
+          }}
           type="text"
           value={inputValue}
           role="combobox"
@@ -543,6 +552,10 @@ function SearchableSelectBase<TData = unknown>({
           autoComplete="off"
           spellCheck={false}
           disabled={disabled}
+          onBlur={(event) => {
+            setOpen(false);
+            inputProps.onBlur?.(event);
+          }}
           onFocus={() => {
             openDropdown();
           }}
@@ -643,8 +656,10 @@ function SearchableSelectBase<TData = unknown>({
 }
 
 const SearchableSelect = React.memo(
-  SearchableSelectBase,
-) as typeof SearchableSelectBase;
+  React.forwardRef(SearchableSelectBase),
+) as <TData = unknown>(
+  props: SearchableSelectProps<TData> & React.RefAttributes<HTMLInputElement>,
+) => React.ReactElement;
 
 export {
   SearchableSelect,

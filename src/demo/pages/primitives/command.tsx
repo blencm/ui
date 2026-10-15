@@ -16,11 +16,6 @@ export default function CommandDemoPage() {
       empty: "No results.",
       suggestions: "Suggestions",
     },
-    es: {
-      placeholder: "Buscar comando...",
-      empty: "Sin resultados.",
-      suggestions: "Sugerencias",
-    },
   });
   const code = `import {
   Command,

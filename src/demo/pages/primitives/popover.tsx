@@ -13,10 +13,6 @@ export default function PopoverDemoPage() {
       open: "Open popover",
       body: "Popover content. You can put a form or a short menu.",
     },
-    es: {
-      open: "Abrir popover",
-      body: "Contenido del popover. Puedes poner un formulario o un menú corto.",
-    },
   });
 
   const code = `import { Button, Popover, PopoverContent, PopoverTrigger } from '@blencm/ui';

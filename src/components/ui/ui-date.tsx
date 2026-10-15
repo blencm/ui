@@ -137,19 +137,21 @@ function parseDateValue(
   if (!trimmedValue) return undefined;
 
   if (/^\d{4}-\d{2}-\d{2}$/.test(trimmedValue)) {
-    const [year, month, day] = trimmedValue.split("-").map(Number);
-    const date = new Date(year, month - 1, day);
+    const date = parse(trimmedValue, "yyyy-MM-dd", new Date());
 
     return isValid(date) ? date : undefined;
   }
 
   const pattern = getSafePattern(valueFormatPattern, valueFormat, "iso");
 
-  const parsedDate = parse(trimmedValue, pattern, new Date(), {
-    locale: locale ?? undefined,
-  });
-
-  return isValid(parsedDate) ? parsedDate : undefined;
+  try {
+    const parsedDate = parse(trimmedValue, pattern, new Date(), {
+      locale: locale ?? undefined,
+    });
+    return isValid(parsedDate) ? parsedDate : undefined;
+  } catch {
+    return undefined;
+  }
 }
 
 function normalizeDate(date?: Date) {

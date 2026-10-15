@@ -11,11 +11,6 @@ export default function UiInputDemoPage() {
       placeholder: "Enter your name",
       min2: "Minimum 2 characters",
     },
-    es: {
-      name: "Nombre",
-      placeholder: "Ingresa tu nombre",
-      min2: "Mínimo 2 caracteres",
-    },
   });
 
   const [name, setName] = React.useState("");

@@ -13,10 +13,6 @@ export default function CollapsibleDemoPage() {
       more: "Show more",
       extra: "Additional content revealed when you press the trigger.",
     },
-    es: {
-      more: "Ver más",
-      extra: "Contenido adicional que se revela al pulsar el trigger.",
-    },
   });
   const code = `import { Button, Collapsible, CollapsibleContent, CollapsibleTrigger } from '@blencm/ui';
 

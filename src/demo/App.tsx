@@ -1,10 +1,9 @@
 import { Menu } from "lucide-react";
-import { Link, Outlet } from "react-router";
+import { Link, Outlet, useLocation } from "react-router";
 import * as React from "react";
 
 import { Button } from "@/components/Button/button";
 import { ScrollView } from "@/components/scroll-view";
-import { Separator } from "@/components/separator";
 import {
   Sheet,
   SheetContent,
@@ -16,13 +15,17 @@ import { ToasterSonner } from "@/components/sonner";
 import { TooltipProvider } from "@/components/tooltip";
 
 import { useLocale } from "./i18n/locale";
-import { LanguageToggle } from "./layout/LanguageToggle";
 import { Sidebar } from "./layout/Sidebar";
 import { ThemeToggle } from "./layout/ThemeToggle";
 
 export function App() {
   const { m } = useLocale();
   const [mobileOpen, setMobileOpen] = React.useState(false);
+  const contentRef = React.useRef<React.ComponentRef<typeof ScrollView>>(null);
+  const { pathname, hash } = useLocation();
+  React.useEffect(() => {
+    if (!hash) contentRef.current?.querySelector('[data-radix-scroll-area-viewport]')?.scrollTo({ top: 0, left: 0 });
+  }, [pathname, hash]);
 
   return (
     <TooltipProvider>
@@ -49,8 +52,6 @@ export function App() {
             </Link>
 
             <div className="flex items-center gap-2 sm:gap-3">
-              <LanguageToggle />
-              <Separator orientation="vertical" className="h-6" />
               <ThemeToggle />
             </div>
           </div>
@@ -61,7 +62,7 @@ export function App() {
             <Sidebar />
           </aside>
 
-          <ScrollView fit="fill" className="min-w-0 flex-1">
+          <ScrollView ref={contentRef} fit="fill" className="min-w-0 flex-1">
             <main className="p-4 sm:p-6 lg:p-10">
               <Outlet />
             </main>

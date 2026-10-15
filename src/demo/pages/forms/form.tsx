@@ -21,23 +21,6 @@ export default function FormDemoPage() {
       acceptDescription: "This field is required to continue.",
       submit: "Create account",
     },
-    es: {
-      min2: "Mínimo 2 caracteres",
-      invalidEmail: "Correo no válido",
-      mustAccept: "Debes aceptar los términos",
-      name: "Nombre",
-      namePlaceholder: "Jane Doe",
-      email: "Correo",
-      emailPlaceholder: "jane@example.com",
-      role: "Rol",
-      rolePlaceholder: "Selecciona un rol",
-      owner: "Propietario",
-      editor: "Editor",
-      viewer: "Visor",
-      accept: "Acepto los términos",
-      acceptDescription: "Este campo es obligatorio para continuar.",
-      submit: "Crear cuenta",
-    },
   });
 
   const code = `import { zodResolver } from '@hookform/resolvers/zod';

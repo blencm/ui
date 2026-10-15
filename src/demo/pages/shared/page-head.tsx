@@ -8,10 +8,6 @@ export default function PageHeadDemoPage() {
       docTitle: "PageHead demo · @blencm/ui",
       hint: "Look at the browser tab title: this component changes it to",
     },
-    es: {
-      docTitle: "PageHead demo · @blencm/ui",
-      hint: "Mira el título de la pestaña del navegador: este componente lo cambia a",
-    },
   });
 
   const code = `import { PageHead } from '@blencm/ui';

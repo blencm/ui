@@ -347,6 +347,7 @@ export interface DataTableProps<TData extends RowData, TValue = unknown> {
   accentColor?: string | null;
 
   page?: number;
+  /** Positive row count. With showAllOption, a count >= totalRows selects All. */
   perPage?: number;
   onPageChange?: (page: number) => void;
   onPageSizeChange?: (pageSize: number) => void;
@@ -356,8 +357,13 @@ export interface DataTableProps<TData extends RowData, TValue = unknown> {
   data: TData[];
 
   pageSizeOptions?: number[];
-  pageCount: number;
+  /** Manual mode receives a page of data; client mode receives the entire dataset. */
+  paginationMode?: "manual" | "client";
+  pageCount?: number;
   totalRows?: number;
+  /** In manual mode, totalRows is required to offer All across multiple pages. */
+  showAllOption?: boolean;
+  allRowsLabel?: string;
 
   isRowsSelected?: boolean;
   rowsSelectedLabel?: string;
@@ -370,16 +376,32 @@ export interface DataTableProps<TData extends RowData, TValue = unknown> {
 
   animate?: boolean;
   heightClassName?: string;
+  /** False removes the internal viewport and fixed height so all visible rows fit. */
+  internalScroll?: boolean;
 
   stickyHeader?: boolean;
   headerScroll?: boolean;
+}
+
+function DataTableViewport({ internalScroll, children }: {
+  internalScroll: boolean;
+  children: React.ReactNode;
+}) {
+  return internalScroll ? (
+    <ScrollArea className="h-full">
+      {children}
+      <ScrollBar orientation="horizontal" />
+    </ScrollArea>
+  ) : (
+    <>{children}</>
+  );
 }
 
 /**
  * DataTable
  * ----------
  * A styled, template-driven table for TanStack Table with:
- * - manual pagination + external page state
+ * - manual pagination (default) or client pagination over the full data array
  * - optional animated body transitions
  * - optional sticky header (works because we removed wrapper div around <table>)
  * - optional row click handler
@@ -396,6 +418,8 @@ export interface DataTableProps<TData extends RowData, TValue = unknown> {
  * - stickyHeader: enables sticky header behavior (default true)
  * - headerScroll: if true, header stickiness is disabled (use when header must scroll away)
  * - heightClassName: sets the overall component height
+ * - internalScroll: false removes the scroll viewport and ignores heightClassName
+ * - showAllOption / allRowsLabel: offer all records using a numeric page size
  * - animate: animates tbody on page changes
  * - emptyData: custom empty state node
  * - totalRows: optional meta display
@@ -406,9 +430,12 @@ function DataTable<TData extends RowData, TValue = unknown>({
   columns,
   data,
   pageCount,
-  page = 1,
-  perPage = 10,
+  page: controlledPage,
+  perPage: controlledPerPage,
   pageSizeOptions = [10, 20, 30, 40, 50],
+  paginationMode = "manual",
+  showAllOption = false,
+  allRowsLabel = "All",
   rowPerPageLabel = "Rows per page",
   ofLabel = "of",
   pageLabel = "Page",
@@ -430,13 +457,37 @@ function DataTable<TData extends RowData, TValue = unknown>({
   onPageSizeChange,
 
   animate = true,
+  internalScroll = true,
   stickyHeader = true,
   headerScroll = false,
   heightClassName = "h-[clamp(22rem,80vh,44rem)] supports-[height:100dvh]:h-[clamp(22rem,80dvh,44rem)]",
 }: DataTableProps<TData, TValue>) {
-  const safePageCount = Math.max(pageCount ?? 1, 1);
+  const [internalPage, setInternalPage] = React.useState(1);
+  const [internalPerPage, setInternalPerPage] = React.useState(10);
+  const page = controlledPage ?? internalPage;
+  const perPage = controlledPerPage ?? internalPerPage;
+  const pageSize = Number.isFinite(perPage) ? Math.max(Math.floor(perPage), 1) : 10;
+  const rowCount = paginationMode === "client" ? data.length : totalRows;
+  const allPageSize = Math.max(1, rowCount ?? data.length);
+  const canShowAll = showAllOption && (
+    paginationMode === "client" || totalRows !== undefined || (pageCount ?? 1) <= 1
+  );
+  const showingAll = canShowAll && pageSize >= allPageSize;
+  const requestedPageCount = paginationMode === "client"
+    ? Math.ceil(data.length / pageSize)
+    : showingAll ? 1 : (pageCount ?? 1);
+  const safePageCount = Number.isFinite(requestedPageCount)
+    ? Math.max(Math.floor(requestedPageCount), 1)
+    : 1;
   const pageIndex = Math.min(Math.max(page - 1, 0), safePageCount - 1);
-  const pageSize = Math.max(perPage, 1);
+  const visibleData = useMemo(
+    () => paginationMode === "client"
+      ? data.slice(pageIndex * pageSize, (pageIndex + 1) * pageSize)
+      : data,
+    [data, pageIndex, pageSize, paginationMode],
+  );
+  const sizeOptions = Array.from(new Set([...pageSizeOptions, pageSize]))
+    .filter((size) => Number.isInteger(size) && size > 0);
 
   const paginationState = useMemo(
     () => ({ pageIndex, pageSize }),
@@ -445,7 +496,7 @@ function DataTable<TData extends RowData, TValue = unknown>({
 
   const table = useTable({
     features: dataTableFeatures,
-    data,
+    data: visibleData,
     columns: columns as ColumnDef<DataTableFeatures, TData>[],
     pageCount: safePageCount,
     state: { pagination: paginationState },
@@ -457,19 +508,22 @@ function DataTable<TData extends RowData, TValue = unknown>({
   const clickable = !!onClick;
 
   const pageKey = useMemo(
-    () => `${pageIndex}-${pageSize}-${data.length}`,
-    [pageIndex, pageSize, data.length],
+    () => `${pageIndex}-${pageSize}-${visibleData.length}`,
+    [pageIndex, pageSize, visibleData.length],
   );
 
   const goToPage = (nextPageIndex: number) => {
     const clamped = Math.min(Math.max(nextPageIndex, 0), safePageCount - 1);
     if (clamped === pageIndex) return;
+    setInternalPage(clamped + 1);
     onPageChange?.(clamped + 1);
   };
 
   const changePageSize = (newSize: number) => {
     const size = Math.max(Number(newSize) || 1, 1);
     if (size === pageSize) return;
+    setInternalPerPage(size);
+    setInternalPage(1);
     onPageSizeChange?.(size);
     onPageChange?.(1);
   };
@@ -493,17 +547,20 @@ function DataTable<TData extends RowData, TValue = unknown>({
   return (
     <div
       data-accent={dataAccent}
-      className={cn(ui.root, heightClassName)}
+      className={cn(
+        ui.root,
+        internalScroll ? heightClassName : "h-auto max-h-none overflow-visible",
+      )}
       style={
         accentOn
           ? ({ "--dt-accent": dtAccent } as React.CSSProperties)
           : undefined
       }
     >
-      <div className="relative min-h-0 flex-1">
-        <ScrollArea className="h-full">
+      <div className={cn("relative min-h-0", internalScroll && "flex-1")}>
+        <DataTableViewport internalScroll={internalScroll}>
           <div className="relative w-max min-w-full">
-            <Table className={cn(ui.table)}>
+            <Table internalScroll={false} className={cn(ui.table)}>
               <TableHeader className={cn(ui.thead)}>
                 {table.getHeaderGroups().map((headerGroup) => (
                   <TableRow key={headerGroup.id} className={cn(ui.trHead)}>
@@ -597,11 +654,9 @@ function DataTable<TData extends RowData, TValue = unknown>({
               )}
             </Table>
           </div>
-
-          <ScrollBar orientation="horizontal" />
-        </ScrollArea>
+        </DataTableViewport>
         {isEmpty ? (
-          <div className="pointer-events-none absolute inset-x-0 bottom-0 top-12 z-[5] flex w-full items-center justify-center p-8">
+          <div className={cn("flex w-full items-center justify-center p-8", internalScroll ? "pointer-events-none absolute inset-x-0 bottom-0 top-12 z-[5]" : "min-h-32")}>
             <div className="pointer-events-auto flex h-full w-full flex-col items-center justify-center text-center">
               {emptyState}
             </div>
@@ -619,9 +674,9 @@ function DataTable<TData extends RowData, TValue = unknown>({
                   {table.getRowModel().rows.length} {rowsSelectedLabel}
                 </div>
               )}
-              {typeof totalRows === "number" && (
+              {typeof rowCount === "number" && (
                 <div>
-                  Total: {totalRows} {totalLabel}
+                  Total: {rowCount} {totalLabel}
                 </div>
               )}
             </div>
@@ -630,21 +685,23 @@ function DataTable<TData extends RowData, TValue = unknown>({
               <div className="flex items-center gap-2">
                 <p className={cn(ui.pageSizeLabel)}>{rowPerPageLabel}</p>
                 <Select
-                  value={`${pageSize}`}
-                  onValueChange={(v) => changePageSize(Number(v))}
+                  value={showingAll ? "all" : `${pageSize}`}
+                  onValueChange={(v) => changePageSize(v === "all" ? allPageSize : Number(v))}
                 >
                   <SelectTrigger
                     data-accent={dataAccent}
-                    className={cn(ui.pageSizeTrigger)}
+                    aria-label={rowPerPageLabel}
+                    className={cn(ui.pageSizeTrigger, canShowAll && "min-w-24")}
                   >
                     <SelectValue placeholder={`${pageSize}`} />
                   </SelectTrigger>
                   <SelectContent>
-                    {pageSizeOptions.map((size) => (
+                    {sizeOptions.map((size) => (
                       <SelectItem key={size} value={`${size}`}>
                         {size}
                       </SelectItem>
                     ))}
+                    {canShowAll && <SelectItem value="all">{allRowsLabel}</SelectItem>}
                   </SelectContent>
                 </Select>
               </div>

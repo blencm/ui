@@ -17,11 +17,6 @@ export default function DialogDemoPage() {
       title: "Create note",
       body: "Use this area for a form, message, or confirmation.",
     },
-    es: {
-      open: "Abrir dialog",
-      title: "Crear nota",
-      body: "Usa esta área para un formulario, mensaje o confirmación.",
-    },
   });
   const code = `import {
   Button,

@@ -12,7 +12,6 @@ import { DemoPage, DemoPreview } from "../../layout/DemoPage";
 export default function BreadcrumbDemoPage() {
   const t = useCopy({
     en: { home: "Home", components: "Components" },
-    es: { home: "Inicio", components: "Componentes" },
   });
   const code = `import {
   Breadcrumb,

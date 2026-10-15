@@ -5,78 +5,20 @@ import type { Locale } from "./types";
 
 export type { Locale };
 
-const STORAGE_KEY = "blencm-ui-locale";
-
-function isLocale(value: string | null | undefined): value is Locale {
-  return value === "en" || value === "es";
-}
-
-export function detectLocale(): Locale {
-  if (typeof window === "undefined") return "en";
-
-  try {
-    const stored = window.localStorage.getItem(STORAGE_KEY);
-    if (isLocale(stored)) return stored;
-  } catch {
-    // Ignore storage access errors (private mode, etc.).
-  }
-
-  const tags = [
-    ...(navigator.languages ?? []),
-    navigator.language,
-  ].filter(Boolean);
-
-  for (const tag of tags) {
-    const base = tag.toLowerCase().split("-")[0];
-    if (base === "es") return "es";
-    if (base === "en") return "en";
-  }
-
-  return "en";
-}
-
-type LocaleContextValue = {
-  locale: Locale;
-  setLocale: (locale: Locale) => void;
-  m: Messages;
-};
-
+type LocaleContextValue = { locale: Locale; m: Messages };
 const LocaleContext = React.createContext<LocaleContextValue | null>(null);
+const englishLocale: LocaleContextValue = { locale: "en", m: messages.en };
 
 export function LocaleProvider({ children }: { children: React.ReactNode }) {
-  const [locale, setLocaleState] = React.useState<Locale>(detectLocale);
-
-  const setLocale = React.useCallback((next: Locale) => {
-    setLocaleState(next);
-    try {
-      window.localStorage.setItem(STORAGE_KEY, next);
-    } catch {
-      // Ignore storage write errors.
-    }
+  React.useEffect(() => {
+    document.documentElement.lang = "en";
   }, []);
 
-  React.useEffect(() => {
-    document.documentElement.lang = locale;
-  }, [locale]);
-
-  const value = React.useMemo<LocaleContextValue>(
-    () => ({
-      locale,
-      setLocale,
-      m: messages[locale],
-    }),
-    [locale, setLocale],
-  );
-
-  return (
-    <LocaleContext.Provider value={value}>{children}</LocaleContext.Provider>
-  );
+  return <LocaleContext.Provider value={englishLocale}>{children}</LocaleContext.Provider>;
 }
 
 export function useLocale() {
-  const ctx = React.useContext(LocaleContext);
-  if (!ctx) {
-    throw new Error("useLocale must be used within LocaleProvider");
-  }
-  return ctx;
+  const context = React.useContext(LocaleContext);
+  if (!context) throw new Error("useLocale must be used within LocaleProvider");
+  return context;
 }

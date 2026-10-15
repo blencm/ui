@@ -10,11 +10,6 @@ export default function RadioGroupDemoPage() {
       comfortable: "Comfortable",
       compact: "Compact",
     },
-    es: {
-      default: "Predeterminado",
-      comfortable: "Cómodo",
-      compact: "Compacto",
-    },
   });
 
   const code = `import { Label, RadioGroup, RadioGroupItem } from '@blencm/ui';

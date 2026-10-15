@@ -19,11 +19,6 @@ export default function FormTimeDemoPage() {
       placeholder: "Select time",
       submit: "Submit",
     },
-    es: {
-      startTime: "Hora de inicio",
-      placeholder: "Seleccione una hora",
-      submit: "Enviar",
-    },
   });
 
   const form = useForm({

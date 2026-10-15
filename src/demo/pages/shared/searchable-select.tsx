@@ -3,12 +3,10 @@ import * as React from "react";
 import { SearchableSelect } from "@/components/searchable-select";
 import { getCountryItems } from "../../data";
 import { useCopy } from "../../i18n/copy";
-import { useLocale } from "../../i18n/locale";
 import { DemoPage, DemoPreview } from "../../layout/DemoPage";
 
 export default function SearchableSelectDemoPage() {
-  const { locale } = useLocale();
-  const countries = getCountryItems(locale);
+  const countries = getCountryItems();
   const t = useCopy({
     en: {
       fruitPlaceholder: "Select a fruit",
@@ -20,17 +18,6 @@ export default function SearchableSelectDemoPage() {
       countryPlaceholder: "Select a country",
       countrySearch: "Search a country...",
       noCountries: "No countries",
-    },
-    es: {
-      fruitPlaceholder: "Selecciona una fruta",
-      fruitSearch: "Buscar fruta...",
-      apple: "Manzana",
-      banana: "Plátano",
-      orange: "Naranja",
-      strawberry: "Fresa",
-      countryPlaceholder: "Selecciona un país",
-      countrySearch: "Buscar un país...",
-      noCountries: "No hay países",
     },
   });
 

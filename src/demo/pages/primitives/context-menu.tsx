@@ -17,12 +17,6 @@ export default function ContextMenuDemoPage() {
       paste: "Paste",
       delete: "Delete",
     },
-    es: {
-      trigger: "Clic derecho aquí",
-      copy: "Copiar",
-      paste: "Pegar",
-      delete: "Eliminar",
-    },
   });
   const code = `import {
   Button,

@@ -17,10 +17,6 @@ export default function SelectDemoPage() {
       placeholder: "Choose a theme",
       system: "System",
     },
-    es: {
-      placeholder: "Elige un tema",
-      system: "Sistema",
-    },
   });
 
   const code = `import * as React from 'react';

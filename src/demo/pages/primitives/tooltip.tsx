@@ -11,7 +11,6 @@ import { DemoPage, DemoPreview } from "../../layout/DemoPage";
 export default function TooltipDemoPage() {
   const t = useCopy({
     en: { trigger: "Hover", content: "Additional information" },
-    es: { trigger: "Hover", content: "Información adicional" },
   });
 
   const code = `import {

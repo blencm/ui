@@ -7,7 +7,6 @@ export default function ButtonDemoPage() {
   const { m } = useLocale();
   const t = useCopy({
     en: { delete: "Delete", loading: "Loading" },
-    es: { delete: "Eliminar", loading: "Cargando" },
   });
   const variantsCode = `import { Button } from '@blencm/ui';
 

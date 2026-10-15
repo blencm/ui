@@ -29,7 +29,7 @@ function readJson(p) {
   try {
     return JSON.parse(fs.readFileSync(p, "utf8"));
   } catch (e) {
-    console.error(`❌ No pude leer JSON: ${p}`);
+    console.error(`❌ Could not read JSON: ${p}`);
     console.error(e?.message ?? e);
     process.exit(1);
   }
@@ -65,7 +65,7 @@ function initVscode() {
   next["tailwindCSS.includeLanguages"] = { ...(curLang || {}), ...(tplLang || {}) };
 
   writeJson(settingsPath, next);
-  console.log("✅ Listo: actualizado .vscode/settings.json (Tailwind IntelliSense).");
+  console.log("✅ Updated .vscode/settings.json (Tailwind IntelliSense).");
 }
 
 function initExtensions() {
@@ -83,7 +83,7 @@ function initExtensions() {
   };
 
   writeJson(extPath, next);
-  console.log("✅ Listo: actualizado .vscode/extensions.json (recomendación Tailwind CSS).");
+  console.log("✅ Updated .vscode/extensions.json (Tailwind CSS recommendation).");
 }
 
 switch (cmd) {
@@ -92,7 +92,7 @@ switch (cmd) {
     initExtensions();
     break;
   default:
-    console.log(`Uso:
+    console.log(`Usage:
   npx blencm-ui init-vscode
 `);
     process.exit(cmd ? 1 : 0);

@@ -9,11 +9,6 @@ export default function BreadcrumbsDemoPage() {
       projects: "Projects",
       website: "Website",
     },
-    es: {
-      home: "Inicio",
-      projects: "Proyectos",
-      website: "Sitio web",
-    },
   });
 
   const items = [

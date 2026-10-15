@@ -22,14 +22,6 @@ export default function FormSelectDemoPage() {
       viewer: "Viewer",
       submit: "Submit",
     },
-    es: {
-      role: "Rol",
-      placeholder: "Selecciona un rol",
-      owner: "Propietario",
-      editor: "Editor",
-      viewer: "Visor",
-      submit: "Enviar",
-    },
   });
 
   const roleItems = [

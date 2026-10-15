@@ -16,12 +16,6 @@ export default function FormFieldDemoPage() {
       placeholder: "Jane Doe",
       submit: "Submit",
     },
-    es: {
-      min2: "Mínimo 2 caracteres",
-      name: "Nombre",
-      placeholder: "Jane Doe",
-      submit: "Enviar",
-    },
   });
 
   const schema = z.object({

@@ -26,14 +26,6 @@ export default function AlertDialogDemoPage() {
       confirm: "Confirm",
       confirmed: "Confirmed",
     },
-    es: {
-      delete: "Eliminar",
-      title: "Eliminar este elemento?",
-      description: "Esta acción no se puede deshacer.",
-      cancel: "Cancelar",
-      confirm: "Confirmar",
-      confirmed: "Confirmado",
-    },
   });
   const code = `import {
   AlertDialog,

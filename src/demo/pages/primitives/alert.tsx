@@ -10,12 +10,6 @@ export default function AlertDemoPage() {
       errorTitle: "Could not save",
       errorBody: "Check the required fields and try again.",
     },
-    es: {
-      savedTitle: "Cambios guardados",
-      savedBody: "Tu perfil se actualizó correctamente.",
-      errorTitle: "No se pudo guardar",
-      errorBody: "Revisa los campos requeridos e inténtalo de nuevo.",
-    },
   });
   const code = `import { Alert, AlertDescription, AlertTitle } from '@blencm/ui';
 

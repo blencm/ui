@@ -17,11 +17,6 @@ export default function SheetDemoPage() {
       title: "Settings",
       description: "Change preferences from this panel.",
     },
-    es: {
-      open: "Abrir sheet",
-      title: "Ajustes",
-      description: "Cambia las preferencias desde este panel.",
-    },
   });
 
   const code = `import {

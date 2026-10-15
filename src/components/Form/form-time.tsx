@@ -33,7 +33,6 @@ import {
 } from "./form-component";
 
 import { UiTime, type UiTimeOption } from "../ui/ui-time";
-import { type ButtonVariant } from "../Button/button";
 
 import {
   resolveTimeFormat,
@@ -61,8 +60,8 @@ type CustomFormTimeProps<
   invalid?: boolean;
 
   /**
-   * date: guarda un Date.
-   * string: guarda usando valueFormat.
+   * date: stores a Date.
+   * string: stores a string using valueFormat.
    */
   valueMode?: TimeValueMode;
 
@@ -80,8 +79,8 @@ type CustomFormTimeProps<
   options?: UiTimeOption[];
 
   /**
-   * "12" = selector hora / minuto / AM-PM.
-   * "24" = selector hora / minuto en formato 24H.
+   * "12" = hour, minute, and AM/PM selectors.
+   * "24" = hour and minute selectors in 24-hour format.
    */
   hourCycle?: HourCycle;
 
@@ -131,7 +130,7 @@ const FormTime = <
   defaultValue,
   label,
   requiredLabel,
-  placeholder = "Seleccionar hora",
+  placeholder = "Select time",
   disabled,
   invalid,
   valueMode = "string",

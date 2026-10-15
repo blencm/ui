@@ -12,10 +12,6 @@ export default function UiDateDemoPage() {
       label: "Date",
       placeholder: "Select a date",
     },
-    es: {
-      label: "Fecha",
-      placeholder: "Seleccione una fecha",
-    },
   });
 
   const [date, setDate] = React.useState<Date | undefined>();

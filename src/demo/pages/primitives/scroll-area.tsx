@@ -5,7 +5,6 @@ import { DemoPage, DemoPreview } from "../../layout/DemoPage";
 export default function ScrollAreaDemoPage() {
   const t = useCopy({
     en: { line: "Line" },
-    es: { line: "Línea" },
   });
 
   const code = `import { ScrollArea } from '@blencm/ui';

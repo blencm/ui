@@ -20,7 +20,6 @@ import {
 import { cn } from "../../utils/utils";
 
 import {
-  getFormControlSizeClass,
   getFormSizeClasses,
   type SelectOption,
   type CustomSize,
@@ -193,6 +192,8 @@ const FormSelect = <
               {searchable ? (
                 <FormControl>
                   <SearchableSelect
+                    ref={field.ref}
+                    onBlur={field.onBlur}
                     items={normalizedOptions}
                     value={(field.value as string) ?? ""}
                     name={field.name}

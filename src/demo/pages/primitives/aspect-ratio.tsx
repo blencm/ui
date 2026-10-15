@@ -5,7 +5,6 @@ import { DemoPage, DemoPreview } from "../../layout/DemoPage";
 export default function AspectRatioDemoPage() {
   const t = useCopy({
     en: { alt: "Demo" },
-    es: { alt: "Demo" },
   });
   const code = `import { AspectRatio } from '@blencm/ui';
 

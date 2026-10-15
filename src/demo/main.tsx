@@ -10,6 +10,7 @@ import { LocaleProvider, useLocale } from "./i18n/locale";
 import { demos } from "./registry";
 
 const basename = import.meta.env.BASE_URL.replace(/\/$/, "") || undefined;
+const GuidePage = React.lazy(() => import('./docs/GuidePage'));
 
 function DemoFallback() {
   const { m } = useLocale();
@@ -28,6 +29,7 @@ createRoot(document.getElementById("root")!).render(
           <Routes>
             <Route element={<App />}>
               <Route index element={<HomePage />} />
+              <Route path="guides/:guideSlug" element={<React.Suspense fallback={<DemoFallback />}><GuidePage /></React.Suspense>} />
               {demos.map((demo) => {
                 const Page = demo.component;
                 return (

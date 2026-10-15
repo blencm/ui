@@ -17,12 +17,6 @@ export default function CardDemoPage() {
       description: "A simple card example.",
       content: "Use Card to group a title, badge, and supporting description.",
     },
-    es: {
-      title: "Starter Kit",
-      badge: "New",
-      description: "Un ejemplo simple de tarjeta.",
-      content: "Usa Card para agrupar título, badge y descripción de apoyo.",
-    },
   });
   const code = `import {
   Badge,

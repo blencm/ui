@@ -5,7 +5,6 @@ import { DemoPage, DemoPreview } from "../../layout/DemoPage";
 export default function ToggleDemoPage() {
   const t = useCopy({
     en: { bold: "Bold", italic: "Italic" },
-    es: { bold: "Negrita", italic: "Itálica" },
   });
 
   const code = `import { Toggle } from '@blencm/ui';

@@ -33,9 +33,9 @@ export const formInputVariants: Record<FormInputVariantProps, string> = {
 export type InputVariant = keyof typeof formInputVariants;
 
 /**
- * Variantes equivalentes para controles compuestos:
- * SearchableSelect, combobox, wrappers con input interno, etc.
- * Usan focus-within porque el foco real vive dentro del wrapper.
+ * Equivalent variants for composite controls:
+ * SearchableSelect, comboboxes, and wrappers with an internal input.
+ * Use focus-within because the input receives focus inside the wrapper.
  */
 export const formCompositeVariants: Record<InputVariant, string> = {
   outline:

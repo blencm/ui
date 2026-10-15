@@ -13,13 +13,6 @@ export default function SonnerDemoPage() {
       errorMessage: "Something went wrong",
       comment: "Mount <ToasterSonner /> once in the app layout.",
     },
-    es: {
-      success: "Success",
-      error: "Error",
-      successMessage: "Operación completada",
-      errorMessage: "Algo falló",
-      comment: "Monta <ToasterSonner /> una vez en el layout de la app.",
-    },
   });
 
   const code = `import { toast } from 'sonner';

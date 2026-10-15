@@ -16,12 +16,6 @@ export default function FormTextareaDemoPage() {
       placeholder: "Enter a description",
       submit: "Submit",
     },
-    es: {
-      min10: "Mínimo 10 caracteres",
-      description: "Descripción",
-      placeholder: "Ingrese una descripción",
-      submit: "Enviar",
-    },
   });
 
   const schema = z.object({

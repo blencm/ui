@@ -12,9 +12,6 @@ export default function HoverCardDemoPage() {
     en: {
       body: "React component library with Tailwind CSS and Radix primitives.",
     },
-    es: {
-      body: "Librería de componentes React con Tailwind CSS y primitivas Radix.",
-    },
   });
   const code = `import { Button, HoverCard, HoverCardContent, HoverCardTrigger } from '@blencm/ui';
 

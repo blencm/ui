@@ -8,7 +8,6 @@ export default function SliderDemoPage() {
   const [value, setValue] = React.useState([40]);
   const t = useCopy({
     en: { value: "Value" },
-    es: { value: "Valor" },
   });
 
   const code = `import * as React from 'react';

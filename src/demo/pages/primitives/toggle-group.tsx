@@ -5,7 +5,6 @@ import { DemoPage, DemoPreview } from "../../layout/DemoPage";
 export default function ToggleGroupDemoPage() {
   const t = useCopy({
     en: { left: "Left", center: "Center", right: "Right" },
-    es: { left: "Izquierda", center: "Centro", right: "Derecha" },
   });
 
   const code = `import { ToggleGroup, ToggleGroupItem } from '@blencm/ui';

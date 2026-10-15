@@ -10,6 +10,8 @@ module.exports = {
   moduleDirectories: ["node_modules", "src"],
   moduleFileExtensions: ["ts", "tsx", "js", "jsx"], // Recognize these file extensions
   transformIgnorePatterns: [
-    '/node_modules/(?!(react-resizable-panels|nanoid)/)',
+    // pnpm stores the real files under .pnpm and then links nested node_modules.
+    '/node_modules/.pnpm/(?!(?:@tanstack\\+[^@/]+|react-resizable-panels|nanoid)@)',
+    '/node_modules/(?!\\.pnpm/|@tanstack/|react-resizable-panels/|nanoid/)',
   ],
 };

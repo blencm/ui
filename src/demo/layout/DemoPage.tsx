@@ -15,6 +15,8 @@ import { cn } from "@/utils/utils";
 import { useLocale } from "../i18n/locale";
 import { getDemoBySlug } from "../registry";
 
+const ComponentDocumentation = React.lazy(() => import('../docs/ComponentDocumentation'));
+
 export function DemoPage({
   title,
   children,
@@ -40,7 +42,17 @@ export function DemoPage({
           .
         </p>
       </div>
+      {demo && <nav aria-label="On this page" className="flex flex-wrap gap-4 border-b pb-4 text-sm">
+        <a href="#examples" className="text-muted-foreground hover:text-foreground">Examples</a>
+        <a href="#usage" className="text-muted-foreground hover:text-foreground">Usage & behavior</a>
+        <a href="#api" className="text-muted-foreground hover:text-foreground">API reference</a>
+      </nav>}
+      <div id="examples" className="space-y-8 scroll-mt-6">
       {children}
+      </div>
+      {demo && <React.Suspense fallback={<p role="status" className="text-muted-foreground text-sm">Loading documentation…</p>}>
+        <ComponentDocumentation key={slug} slug={slug} />
+      </React.Suspense>}
     </div>
   );
 }

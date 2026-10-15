@@ -18,12 +18,6 @@ export default function FormDateDemoPage() {
       placeholder: "Select a date",
       submit: "Submit",
     },
-    es: {
-      requiredDate: "Selecciona una fecha",
-      startDate: "Fecha de inicio",
-      placeholder: "Seleccione una fecha",
-      submit: "Enviar",
-    },
   });
 
   const schema = z.object({

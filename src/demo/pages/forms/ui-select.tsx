@@ -3,12 +3,10 @@ import * as React from "react";
 import { UiSelect } from "@/components/ui/select";
 import { getCountryItems } from "../../data";
 import { useCopy } from "../../i18n/copy";
-import { useLocale } from "../../i18n/locale";
 import { DemoPage, DemoPreview } from "../../layout/DemoPage";
 
 export default function UiSelectDemoPage() {
-  const { locale } = useLocale();
-  const countries = getCountryItems(locale);
+  const countries = getCountryItems();
   const t = useCopy({
     en: {
       language: "Language",
@@ -21,18 +19,6 @@ export default function UiSelectDemoPage() {
       japanese: "Japanese",
       country: "Country",
       countryPlaceholder: "Select a country",
-    },
-    es: {
-      language: "Idioma",
-      languagePlaceholder: "Selecciona un idioma",
-      languageError: "Selecciona un idioma.",
-      english: "Inglés",
-      spanish: "Español",
-      portuguese: "Portugués",
-      french: "Francés",
-      japanese: "Japonés",
-      country: "País",
-      countryPlaceholder: "Selecciona un país",
     },
   });
 

@@ -12,12 +12,6 @@ export default function UiCheckboxDemoPage() {
         "You can change this option later from your account settings.",
       error: "You must accept the terms.",
     },
-    es: {
-      label: "Acepto los términos y condiciones",
-      description:
-        "Puedes cambiar esta opción más tarde en la configuración de tu cuenta.",
-      error: "Debes aceptar los términos.",
-    },
   });
 
   const [accepted, setAccepted] = React.useState(false);

@@ -1,3 +1,4 @@
+import * as React from "react";
 import {
   Table,
   TableBody,
@@ -19,17 +20,10 @@ export default function TableDemoPage() {
       mobile: "Mobile app",
       active: "Active",
       paused: "Paused",
-    },
-    es: {
-      project: "Proyecto",
-      owner: "Responsable",
-      status: "Estado",
-      website: "Sitio web",
-      mobile: "App móvil",
-      active: "Activo",
-      paused: "Pausado",
+      internalScroll: "Internal scrolling",
     },
   });
+  const [internalScroll, setInternalScroll] = React.useState(false);
 
   const code = `import {
   Table,
@@ -42,7 +36,7 @@ export default function TableDemoPage() {
 
 export function TableDemo() {
   return (
-    <Table>
+    <Table internalScroll={false}>
       <TableHeader>
         <TableRow>
           <TableHead>${t.project}</TableHead>
@@ -69,7 +63,11 @@ export function TableDemo() {
   return (
     <DemoPage title="Table">
       <DemoPreview code={code}>
-        <Table>
+        <label className="mb-4 flex items-center gap-2 text-sm">
+          <input type="checkbox" checked={internalScroll} onChange={(event) => setInternalScroll(event.target.checked)} />
+          {t.internalScroll}
+        </label>
+        <Table internalScroll={internalScroll} containerClassName={internalScroll ? "max-h-32" : undefined}>
           <TableHeader>
             <TableRow>
               <TableHead>{t.project}</TableHead>

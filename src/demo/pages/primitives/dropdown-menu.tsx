@@ -19,13 +19,6 @@ export default function DropdownMenuDemoPage() {
       settings: "Settings",
       logout: "Log out",
     },
-    es: {
-      open: "Abrir menú",
-      account: "Mi cuenta",
-      profile: "Perfil",
-      settings: "Ajustes",
-      logout: "Cerrar sesión",
-    },
   });
   const code = `import {
   Button,

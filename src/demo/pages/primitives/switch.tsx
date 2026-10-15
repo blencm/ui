@@ -9,7 +9,6 @@ export default function SwitchDemoPage() {
   const [enabled, setEnabled] = React.useState(false);
   const t = useCopy({
     en: { airplane: "Airplane mode" },
-    es: { airplane: "Modo avión" },
   });
 
   const code = `import * as React from 'react';

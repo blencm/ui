@@ -10,10 +10,6 @@ export default function UiTimeDemoPage() {
       label: "Time",
       placeholder: "Select a time",
     },
-    es: {
-      label: "Hora",
-      placeholder: "Seleccione una hora",
-    },
   });
 
   const [time, setTime] = React.useState<Date | undefined>();

@@ -28,17 +28,6 @@ export default function ScrollViewDemoPage() {
       wideRowHint:
         "the view fills the parent and scrolls only when needed.",
     },
-    es: {
-      fillTitle: "Rellenar el espacio restante",
-      contentTitle: "Contenido hasta la altura máxima",
-      bothTitle: "Ambos ejes",
-      header: "Encabezado",
-      row: "Fila",
-      item: "Elemento",
-      overflow: "Desbordamiento horizontal y vertical en la misma vista.",
-      wideRow: "Fila ancha",
-      wideRowHint: "la vista llena el padre y solo hace scroll cuando hace falta.",
-    },
   });
 
   const fillCode = `import { ScrollView } from '@blencm/ui';

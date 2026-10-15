@@ -8,7 +8,6 @@ export default function InputDemoPage() {
   const [value, setValue] = React.useState("");
   const t = useCopy({
     en: { name: "Name", error: "With error", disabled: "Disabled" },
-    es: { name: "Nombre", error: "Con error", disabled: "Deshabilitado" },
   });
   const code = `import { Input } from '@blencm/ui';
 

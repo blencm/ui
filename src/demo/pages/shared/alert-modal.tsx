@@ -14,13 +14,6 @@ export default function AlertModalDemoPage() {
       cancel: "Cancel",
       confirm: "Confirm",
     },
-    es: {
-      deleteItem: "Eliminar elemento",
-      title: "¿Estás seguro?",
-      description: "¿Seguro que quieres continuar?",
-      cancel: "Cancelar",
-      confirm: "Confirmar",
-    },
   });
 
   const [open, setOpen] = React.useState(false);

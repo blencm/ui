@@ -8,10 +8,6 @@ export default function HeadingDemoPage() {
       title: "Projects",
       description: "Manage the active projects in the workspace.",
     },
-    es: {
-      title: "Proyectos",
-      description: "Gestiona los proyectos activos del workspace.",
-    },
   });
 
   const code = `import { Heading } from '@blencm/ui';

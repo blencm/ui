@@ -59,65 +59,6 @@ export const messages = {
       composites: "Composites",
     } satisfies Record<DemoGroup, string>,
   },
-  es: {
-    catalogSubtitle: "Librería UI para React",
-    searchPlaceholder: "Buscar componentes...",
-    searchAria: "Buscar componentes",
-    home: "Introducción",
-    noMatches: "No hay coincidencias.",
-    openMenu: "Abrir menú",
-    navigation: "Navegación",
-    gettingStarted: "Empezar",
-    componentsNav: "Componentes",
-    loadingDemo: "Cargando demo...",
-    homeEyebrow: "UI React instalable",
-    homeTitle: "Construye interfaces con @blencm/ui",
-    homeLead:
-      "Componentes accesibles sobre Radix UI y Tailwind CSS. Instala el paquete, importa un componente y empieza. Estilos, tokens y reset vienen con la librería.",
-    installTitle: "1. Instalar",
-    installBody:
-      "Añade el paquete a tu app React. React y React DOM son peer dependencies.",
-    peersTitle: "Peer dependencies",
-    usageTitle: "2. Importa un componente",
-    usageBody:
-      "Los estilos se cargan con el paquete. No hace falta importar un CSS.",
-    darkTitle: "3. Modo oscuro",
-    darkBody:
-      "El tema sigue la clase dark en un ancestro, normalmente el html. next-themes funciona con attribute=\"class\".",
-    optionalCssTitle: "Import de CSS opcional",
-    optionalCssBody:
-      "Si tu bundler no carga CSS desde el entry del paquete, importa la hoja una vez en la raíz de la app.",
-    exploreTitle: "Componentes",
-    exploreBody:
-      "Usa el menú lateral para navegar por tipo, o entra a un componente desde aquí.",
-    demoPageHint:
-      "En la pestaña Código puedes copiar el ejemplo e importarlo desde",
-    preview: "Vista previa",
-    code: "Código",
-    example: "Ejemplo",
-    copy: "Copiar",
-    copied: "Copiado",
-    copyAria: "Copiar código",
-    copiedAria: "Código copiado",
-    variants: "Variantes",
-    sizes: "Tamaños",
-    save: "Guardar",
-    language: "Idioma",
-    themeLight: "Usar tema claro",
-    themeDark: "Usar tema oscuro",
-    themeToggle: "Cambiar tema",
-    groups: {
-      buttons: "Botones",
-      "form-controls": "Controles de formulario",
-      overlays: "Superposiciones",
-      navigation: "Navegación",
-      feedback: "Feedback",
-      "data-display": "Visualización",
-      layout: "Estructura",
-      forms: "Formularios",
-      composites: "Compuestos",
-    } satisfies Record<DemoGroup, string>,
-  },
 } as const;
 
 export type Messages = (typeof messages)[Locale];

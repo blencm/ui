@@ -20,12 +20,6 @@ export default function DrawerDemoPage() {
       description: "Adjust the options and confirm.",
       done: "Done",
     },
-    es: {
-      open: "Abrir drawer",
-      title: "Filtros",
-      description: "Ajusta las opciones y confirma.",
-      done: "Listo",
-    },
   });
   const code = `import {
   Button,

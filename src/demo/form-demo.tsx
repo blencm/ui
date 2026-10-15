@@ -13,7 +13,6 @@ import { FormTime } from "@/components/Form/form-time";
 import { FormTextarea } from "@/components/Form/form-textarea";
 import { useCopy } from "./i18n/copy";
 import { useDateFnsLocale } from "./i18n/date-locale";
-import { useLocale } from "./i18n/locale";
 
 type FormValues = {
   name: string;
@@ -28,9 +27,8 @@ type FormValues = {
 };
 
 export function FormDemo() {
-  const { locale } = useLocale();
   const dateLocale = useDateFnsLocale();
-  const countries = getCountryItems(locale);
+  const countries = getCountryItems();
   const t = useCopy({
     en: {
       min2: "Minimum 2 characters",
@@ -61,36 +59,6 @@ export function FormDemo() {
       accept: "I accept the terms",
       acceptDescription: "This field is required to continue.",
       submit: "Create account",
-    },
-    es: {
-      min2: "Mínimo 2 caracteres",
-      invalidEmail: "Correo no válido",
-      min8: "Mínimo 8 caracteres",
-      min10: "Mínimo 10 caracteres",
-      mustAccept: "Debes aceptar los términos",
-      name: "Nombre",
-      namePlaceholder: "Jane Doe",
-      email: "Correo",
-      emailPlaceholder: "jane@example.com",
-      startDate: "Fecha de inicio",
-      startDatePlaceholder: "Seleccione una fecha",
-      startTime: "Hora de inicio",
-      startTimePlaceholder: "Seleccione una hora",
-      description: "Descripción",
-      descriptionPlaceholder: "Ingrese una descripción",
-      password: "Contraseña",
-      role: "Rol",
-      rolePlaceholder: "Selecciona un rol",
-      owner: "Propietario",
-      editor: "Editor",
-      viewer: "Visor",
-      country: "País",
-      countryPlaceholder: "Selecciona un país",
-      searchCountries: "Buscar países...",
-      noCountries: "No hay países",
-      accept: "Acepto los términos",
-      acceptDescription: "Este campo es obligatorio para continuar.",
-      submit: "Crear cuenta",
     },
   });
 

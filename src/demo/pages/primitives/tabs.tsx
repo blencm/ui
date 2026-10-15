@@ -10,12 +10,6 @@ export default function TabsDemoPage() {
       overviewBody: "General information about the component.",
       settingsBody: "Preferences and settings.",
     },
-    es: {
-      overview: "Resumen",
-      settings: "Ajustes",
-      overviewBody: "Información general del componente.",
-      settingsBody: "Preferencias y configuración.",
-    },
   });
 
   const code = `import { Tabs, TabsContent, TabsList, TabsTrigger } from '@blencm/ui';

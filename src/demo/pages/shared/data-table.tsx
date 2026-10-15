@@ -32,26 +32,8 @@ export default function DataTableDemoPage() {
       of: "of",
       rowsSelected: "row(s) selected",
       records: "records",
-    },
-    es: {
-      id: "ID",
-      project: "Proyecto",
-      owner: "Responsable",
-      status: "Estado",
-      statusActive: "Activo",
-      statusPaused: "Pausado",
-      statusCompleted: "Completado",
-      projectWebsite: "Rediseño web",
-      projectMobile: "App móvil",
-      projectDesign: "Sistema de diseño",
-      projectApi: "API Gateway",
-      projectBilling: "Facturación",
-      projectDocs: "Docs",
-      rowsPerPage: "Filas por página",
-      page: "Página",
-      of: "de",
-      rowsSelected: "fila(s) seleccionada(s)",
-      records: "registros",
+      all: "All",
+      internalScroll: "Internal scrolling",
     },
   });
 
@@ -62,7 +44,7 @@ export default function DataTableDemoPage() {
     { accessorKey: "status", header: t.status },
   ];
 
-  const data: Project[] = [
+  const projects: Project[] = [
     { id: 1, name: t.projectWebsite, owner: "Jane Cooper", status: t.statusActive },
     { id: 2, name: t.projectMobile, owner: "Wade Warren", status: t.statusPaused },
     { id: 3, name: t.projectDesign, owner: "Esther Howard", status: t.statusCompleted },
@@ -71,10 +53,14 @@ export default function DataTableDemoPage() {
     { id: 6, name: t.projectDocs, owner: "Kristin Watson", status: t.statusCompleted },
   ];
 
+  const data: Project[] = Array.from({ length: 30 }, (_, index) => ({
+    ...projects[index % projects.length],
+    id: index + 1,
+  }));
+
   const [page, setPage] = React.useState(1);
   const [perPage, setPerPage] = React.useState(5);
-  const pageCount = Math.ceil(data.length / perPage);
-  const visibleRows = data.slice((page - 1) * perPage, page * perPage);
+  const [internalScroll, setInternalScroll] = React.useState(false);
 
   const code = `import * as React from 'react';
 import { DataTable, type DataTableColumnDef } from '@blencm/ui';
@@ -93,24 +79,31 @@ const columns: DataTableColumnDef<Project>[] = [
   { accessorKey: 'status', header: '${t.status}' }
 ];
 
-const data: Project[] = [
+const projects: Project[] = [
   { id: 1, name: '${t.projectWebsite}', owner: 'Jane Cooper', status: '${t.statusActive}' },
   { id: 2, name: '${t.projectMobile}', owner: 'Wade Warren', status: '${t.statusPaused}' }
 ];
 
+const data: Project[] = Array.from({ length: 30 }, (_, index) => ({
+  ...projects[index % projects.length],
+  id: index + 1
+}));
+
 export function DataTableDemo() {
   const [page, setPage] = React.useState(1);
   const [perPage, setPerPage] = React.useState(5);
-  const pageCount = Math.ceil(data.length / perPage);
-  const visibleRows = data.slice((page - 1) * perPage, page * perPage);
 
   return (
     <DataTable
       columns={columns}
-      data={visibleRows}
+      data={data}
+      paginationMode="client"
+      internalScroll={false}
+      showAllOption
+      allRowsLabel="${t.all}"
+      pageSizeOptions={[5, 10, 20, 50]}
       page={page}
       perPage={perPage}
-      pageCount={pageCount}
       totalRows={data.length}
       onPageChange={setPage}
       onPageSizeChange={(size) => {
@@ -131,12 +124,24 @@ export function DataTableDemo() {
   return (
     <DemoPage title="DataTable">
       <DemoPreview code={code} className="p-3 sm:p-4">
+        <label className="mb-4 flex items-center gap-2 text-sm">
+          <input
+            type="checkbox"
+            checked={internalScroll}
+            onChange={(event) => setInternalScroll(event.target.checked)}
+          />
+          {t.internalScroll}
+        </label>
         <DataTable
           columns={columns}
-          data={visibleRows}
+          data={data}
+          paginationMode="client"
+          internalScroll={internalScroll}
+          showAllOption
+          allRowsLabel={t.all}
+          pageSizeOptions={[5, 10, 20, 50]}
           page={page}
           perPage={perPage}
-          pageCount={pageCount}
           totalRows={data.length}
           onPageChange={setPage}
           onPageSizeChange={(size) => {

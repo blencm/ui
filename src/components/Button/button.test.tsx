@@ -1,5 +1,5 @@
 import React from "react";
-import { render, screen, fireEvent } from "@testing-library/react";
+import { render, screen } from "@testing-library/react";
 import { Button } from "./button";
 import "@testing-library/jest-dom";
 
@@ -8,7 +8,7 @@ describe("Button component", () => {
     render(<Button>Click Me</Button>);
     const button = screen.getByRole("button", { name: /click me/i });
     expect(button).toBeInTheDocument();
-    expect(button).toHaveClass("h-9 px-4 py-2");
+    expect(button).toHaveClass("h-9 px-3.5 text-sm");
   });
 
   test("renders with secondary variant and small size", () => {
@@ -19,7 +19,7 @@ describe("Button component", () => {
     );
     const button = screen.getByRole("button", { name: /small button/i });
     expect(button).toHaveClass("bg-secondary text-secondary-foreground");
-    expect(button).toHaveClass("h-8 rounded-md px-3 text-xs");
+    expect(button).toHaveClass("h-9 rounded-md px-3 text-sm");
   });
 
   test("disables the button when loading", () => {

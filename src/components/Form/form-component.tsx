@@ -69,7 +69,7 @@ function getNextEnabledIndex<TItem>(
 ) {
   if (!options.length) return -1;
 
-  let nextIndex = currentIndex;
+  let nextIndex = currentIndex < 0 && direction === -1 ? 0 : currentIndex;
 
   for (let index = 0; index < options.length; index += 1) {
     nextIndex = (nextIndex + direction + options.length) % options.length;

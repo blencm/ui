@@ -1,8 +1,5 @@
-import { enUS, es } from "date-fns/locale";
-
-import { useLocale } from "./locale";
+import { enUS } from "date-fns/locale";
 
 export function useDateFnsLocale() {
-  const { locale } = useLocale();
-  return locale === "es" ? es : enUS;
+  return enUS;
 }

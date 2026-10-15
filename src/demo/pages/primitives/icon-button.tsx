@@ -7,7 +7,6 @@ import { DemoPage, DemoPreview } from "../../layout/DemoPage";
 export default function IconButtonDemoPage() {
   const t = useCopy({
     en: { edit: "Edit", delete: "Delete" },
-    es: { edit: "Editar", delete: "Eliminar" },
   });
   const code = `import { Pencil, Trash2 } from 'lucide-react';
 import { IconButton } from '@blencm/ui';

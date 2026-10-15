@@ -10,10 +10,6 @@ export default function DropzoneDemoPage() {
       description: "Drag and drop some files here, or click to select files",
       descriptionActive: "Drop the files here ...",
     },
-    es: {
-      description: "Arrastra archivos aquí, o haz clic para seleccionarlos",
-      descriptionActive: "Suelta los archivos aquí...",
-    },
   });
 
   const [files, setFiles] = React.useState<File[]>([]);

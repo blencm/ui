@@ -14,13 +14,21 @@ import { cn } from "@/utils/utils";
 
 import { useLocale } from "../i18n/locale";
 import { DEMO_GROUPS, demos } from "../registry";
+import { guides } from '../docs/guides';
 
 export function Sidebar({ onNavigate }: { onNavigate?: () => void }) {
   const { locale, m } = useLocale();
   const { pathname } = useLocation();
   const [query, setQuery] = React.useState("");
+  const [guidesOpen, setGuidesOpen] = React.useState(pathname.startsWith('/guides/'));
   const normalized = query.trim().toLowerCase();
   const activeSlug = pathname.replace(/^\/+|\/+$/g, "");
+  const matchingGuides = [...guides, { slug: 'api', title: 'Public API reference', description: 'Search components, hooks, functions, types and constants.' }]
+    .filter(guide => !normalized || `${guide.title} ${guide.description}`.toLowerCase().includes(normalized));
+
+  React.useEffect(() => {
+    if (pathname.startsWith('/guides/')) setGuidesOpen(true);
+  }, [pathname]);
 
   const grouped = DEMO_GROUPS.map((group) => ({
     group,
@@ -31,8 +39,7 @@ export function Sidebar({ onNavigate }: { onNavigate?: () => void }) {
         return (
           demo.title.toLowerCase().includes(normalized) ||
           demo.slug.includes(normalized) ||
-          demo.description.en.toLowerCase().includes(normalized) ||
-          demo.description.es.toLowerCase().includes(normalized)
+          demo.description.en.toLowerCase().includes(normalized)
         );
       })
       .sort((a, b) => a.title.localeCompare(b.title)),
@@ -44,8 +51,8 @@ export function Sidebar({ onNavigate }: { onNavigate?: () => void }) {
         <Input
           value={query}
           onChange={(event) => setQuery(event.target.value)}
-          placeholder={m.searchPlaceholder}
-          aria-label={m.searchAria}
+          placeholder="Search documentation…"
+          aria-label="Search documentation"
         />
       </div>
 
@@ -70,6 +77,22 @@ export function Sidebar({ onNavigate }: { onNavigate?: () => void }) {
           {m.home}
         </NavLink>
 
+        {matchingGuides.length > 0 && <div className="mt-2">
+          <Collapsible open={Boolean(normalized) || guidesOpen} onOpenChange={setGuidesOpen}>
+            <CollapsibleTrigger className="hover:bg-accent/50 focus-visible:ring-ring flex w-full items-center gap-2 rounded-md px-2 py-2 text-left text-sm focus-visible:ring-2 focus-visible:outline-none">
+              <ChevronRight className={cn('text-muted-foreground size-3.5 shrink-0 transition-transform', (normalized || guidesOpen) && 'rotate-90')} />
+              <span className="min-w-0 flex-1">Guides & reference</span>
+              <span className="text-muted-foreground text-[11px] tabular-nums">{matchingGuides.length}</span>
+            </CollapsibleTrigger>
+            <CollapsibleContent>
+              <nav aria-label="Documentation guides" className="border-border/70 ml-3.5 space-y-0.5 border-l py-1 pl-2.5">
+                {matchingGuides.map(guide => <NavLink key={guide.slug} to={`/guides/${guide.slug}`} onClick={onNavigate}
+                  className={({ isActive }) => cn('block rounded-md px-2 py-1.5 text-[13px]', isActive ? 'bg-accent text-accent-foreground font-medium' : 'text-muted-foreground hover:bg-accent/60 hover:text-foreground')}>{guide.title}</NavLink>)}
+              </nav>
+            </CollapsibleContent>
+          </Collapsible>
+        </div>}
+
         <Separator className="my-4" />
 
         <p className="text-muted-foreground px-2 pb-2 text-[11px] font-semibold tracking-[0.14em] uppercase">
@@ -90,7 +113,7 @@ export function Sidebar({ onNavigate }: { onNavigate?: () => void }) {
           ))}
         </div>
 
-        {grouped.length === 0 ? (
+        {grouped.length === 0 && matchingGuides.length === 0 ? (
           <p className="text-muted-foreground px-2 pt-2 text-sm">{m.noMatches}</p>
         ) : null}
         </div>
@@ -109,7 +132,7 @@ function SidebarGroup({
 }: {
   label: string;
   items: typeof demos;
-  locale: "en" | "es";
+  locale: "en";
   forceOpen: boolean;
   activeSlug: string;
   onNavigate?: () => void;

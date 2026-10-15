@@ -7,17 +7,17 @@ describe('Label', () => {
   it('renders the Label component with text', () => {
     render(<Label htmlFor="input-id">Test Label</Label>);
 
-    // Verificar que el texto del label está presente
+    // Verify that the label text is present.
     expect(screen.getByText('Test Label')).toBeInTheDocument();
 
-    // Verificar que el atributo htmlFor está configurado correctamente
+    // Verify that htmlFor points to the input.
     expect(screen.getByText('Test Label')).toHaveAttribute('for', 'input-id');
   });
 
   it('applies custom class names', () => {
     render(<Label className="custom-class">Custom Label</Label>);
 
-    // Verificar que la clase personalizada está aplicada
+    // Verify that the custom class is applied.
     expect(screen.getByText('Custom Label')).toHaveClass('custom-class');
   });
 
@@ -29,7 +29,7 @@ describe('Label', () => {
       </div>
     );
 
-    // Verificar que el label tiene las clases de estado deshabilitado
+    // Verify that the label has the disabled state classes.
     expect(screen.getByText('Disabled Label')).toHaveClass(
       'peer-disabled:cursor-not-allowed peer-disabled:opacity-70'
     );

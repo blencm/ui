@@ -14,12 +14,6 @@ export default function CheckboxDemoPage() {
       checked: "checked",
       unchecked: "unchecked",
     },
-    es: {
-      terms: "Acepto los términos",
-      status: "Estado",
-      checked: "marcado",
-      unchecked: "sin marcar",
-    },
   });
   const code = `import * as React from 'react';
 import { Checkbox } from '@blencm/ui';

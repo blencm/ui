@@ -11,11 +11,6 @@ export default function SearchInputDemoPage() {
       value: "Value",
       empty: "(empty)",
     },
-    es: {
-      placeholder: "Buscar documentos...",
-      value: "Valor",
-      empty: "(vacío)",
-    },
   });
 
   const [search, setSearch] = React.useState("");

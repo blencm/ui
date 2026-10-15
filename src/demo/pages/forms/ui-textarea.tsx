@@ -11,11 +11,6 @@ export default function UiTextareaDemoPage() {
       placeholder: "Write something...",
       min10: "Minimum 10 characters",
     },
-    es: {
-      notes: "Notas",
-      placeholder: "Escribe algo...",
-      min10: "Mínimo 10 caracteres",
-    },
   });
 
   const [value, setValue] = React.useState("");

@@ -42,8 +42,6 @@ const Example = () => {
   const [page, setPage] = useState(1);
   const [perPage, setPerPage] = useState(5);
 
-  const paginatedData = data.slice((page - 1) * perPage, page * perPage);
-
   const handlePageChange = (newPage: number) => {
     setPage(newPage);
   };
@@ -58,8 +56,12 @@ const Example = () => {
       <h1 className="text-xl font-bold mb-4">Data Table with Pagination</h1>
       <DataTable
         columns={columns}
-        data={paginatedData}
-        pageCount={Math.ceil(data.length / perPage)}
+        data={data}
+        paginationMode="client"
+        internalScroll={false}
+        pageSizeOptions={[5, 10, 20, 50]}
+        showAllOption
+        allRowsLabel="All"
         page={page}
         perPage={perPage}
         onPageChange={handlePageChange}

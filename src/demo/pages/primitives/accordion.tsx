@@ -16,13 +16,6 @@ export default function AccordionDemoPage() {
       trigger2: "How do I install it?",
       content2: "Run pnpm add @blencm/ui and import the global CSS once.",
     },
-    es: {
-      trigger1: "Qué incluye el paquete?",
-      content1:
-        "Componentes accesibles, estilos con Tailwind CSS y helpers de formulario reutilizables.",
-      trigger2: "Cómo se instala?",
-      content2: "Usa pnpm add @blencm/ui e importa el CSS global una vez.",
-    },
   });
   const code = `import {
   Accordion,

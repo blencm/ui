@@ -9,9 +9,6 @@ export default function FileUploadDemoPage() {
     en: {
       label: "Add Image",
     },
-    es: {
-      label: "Añadir imagen",
-    },
   });
 
   const [files, setFiles] = React.useState<File[]>([]);

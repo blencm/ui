@@ -56,8 +56,8 @@ export interface UiTimeProps {
   locale?: Locale;
 
   /**
-   * 1 = selector minuto por minuto.
-   * 5, 10, 15, 30 también funcionan.
+   * 1 = one-minute intervals.
+   * 5, 10, 15, and 30-minute intervals are also supported.
    */
   minuteStep?: number;
 
@@ -65,8 +65,8 @@ export interface UiTimeProps {
   maxTime?: string;
 
   /**
-   * Si envías options, se renderiza como lista simple.
-   * Para el picker tipo imagen, no mandes options.
+   * Supply options to render a simple list.
+   * Omit options to use the wheel picker.
    */
   options?: UiTimeOption[];
 
@@ -118,7 +118,7 @@ function parseTimeStringToDate(value: string) {
     const minutes = Number(time24Match[2]);
     const seconds = Number(time24Match[3] ?? 0);
 
-    if (hours >= 0 && hours <= 23 && minutes >= 0 && minutes <= 59) {
+    if (hours >= 0 && hours <= 23 && minutes >= 0 && minutes <= 59 && seconds <= 59) {
       return createTimeDate(hours, minutes, seconds);
     }
   }
@@ -133,7 +133,7 @@ function parseTimeStringToDate(value: string) {
     const seconds = Number(time12Match[3] ?? 0);
     const period = time12Match[4].toUpperCase();
 
-    if (hours >= 1 && hours <= 12 && minutes >= 0 && minutes <= 59) {
+    if (hours >= 1 && hours <= 12 && minutes >= 0 && minutes <= 59 && seconds <= 59) {
       if (period === "PM" && hours < 12) hours += 12;
       if (period === "AM" && hours === 12) hours = 0;
 
@@ -176,11 +176,14 @@ function parseTimeValue(
   ].filter(Boolean) as string[];
 
   for (const pattern of patterns) {
-    const parsedDate = parse(trimmedValue, pattern, new Date(), {
-      locale,
-    });
-
-    if (isValid(parsedDate)) return parsedDate;
+    try {
+      const parsedDate = parse(trimmedValue, pattern, new Date(), {
+        locale,
+      });
+      if (isValid(parsedDate)) return parsedDate;
+    } catch {
+      // Try the remaining supported formats if a custom pattern is invalid.
+    }
   }
 
   return undefined;

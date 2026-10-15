@@ -12,12 +12,6 @@ export default function ToastDemoPage() {
       description: "Changes were saved successfully.",
       comment: "Mount <Toaster /> once in the app layout.",
     },
-    es: {
-      show: "Mostrar toast",
-      title: "Guardado",
-      description: "Los cambios se guardaron correctamente.",
-      comment: "Monta <Toaster /> una vez en el layout de la app.",
-    },
   });
 
   const code = `import { Button, useToast } from '@blencm/ui';

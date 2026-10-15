@@ -6,7 +6,6 @@ import { DemoPage, DemoPreview } from "../../layout/DemoPage";
 export default function LabelDemoPage() {
   const t = useCopy({
     en: { email: "Email" },
-    es: { email: "Email" },
   });
   const code = `import { Input, Label } from '@blencm/ui';
 

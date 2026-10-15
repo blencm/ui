@@ -1,13 +1,21 @@
 import * as React from "react";
 import { cn } from "../utils/utils";
 
-type TableProps = React.HTMLAttributes<HTMLTableElement> & {
+export type TableProps = React.HTMLAttributes<HTMLTableElement> & {
   containerClassName?: string;
+  /** Allow the wrapper to scroll. Disable to let the surrounding page scroll. */
+  internalScroll?: boolean;
 };
 
 const Table = React.forwardRef<HTMLTableElement, TableProps>(
-  ({ className, containerClassName, ...props }, ref) => (
-    <div className={cn("relative w-full overflow-visible", containerClassName)}>
+  ({ className, containerClassName, internalScroll = false, ...props }, ref) => (
+    <div
+      className={cn(
+        "relative w-full",
+        containerClassName,
+        internalScroll ? "overflow-auto" : "overflow-visible",
+      )}
+    >
       <table
         ref={ref}
         className={cn("w-full caption-bottom text-sm", className)}

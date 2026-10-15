@@ -7,6 +7,7 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/tabs";
 import { useLocale } from "./i18n/locale";
 import { CodeSnippet } from "./layout/CodeSnippet";
 import { DEMO_GROUPS, demos } from "./registry";
+import { guides } from './docs/guides';
 
 const INSTALL = {
   pnpm: "pnpm add @blencm/ui",
@@ -113,6 +114,19 @@ export function HomePage() {
       </section>
 
       <Separator />
+
+      <section className="space-y-5">
+        <div className="space-y-2">
+          <h2 className="text-xl font-semibold tracking-tight">Build with confidence</h2>
+          <p className="text-muted-foreground text-sm leading-6">Follow practical guides, explore working examples and inspect the API on every component page.</p>
+        </div>
+        <div className="grid gap-3 sm:grid-cols-2">{guides.map((guide, index) => <Link key={guide.slug} to={`/guides/${guide.slug}`} className="hover:bg-muted/40 group rounded-xl border p-4 transition-colors">
+          <span className="text-muted-foreground font-mono text-[11px]">{String(index + 1).padStart(2, '0')}</span>
+          <h3 className="mt-2 text-sm font-semibold group-hover:underline underline-offset-4">{guide.title}</h3>
+          <p className="text-muted-foreground mt-1.5 text-xs leading-6">{guide.description}</p>
+        </Link>)}</div>
+        <Link to="/guides/api" className="bg-primary text-primary-foreground block rounded-xl px-5 py-4 text-sm font-medium">Browse the complete public API →</Link>
+      </section>
 
       <section className="space-y-6">
         <div className="space-y-1">

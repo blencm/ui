@@ -57,7 +57,7 @@ function useSelectContext(componentName: string) {
   if (!context) {
     throw new Error(
       `${componentName} must be used within <Select />. ` +
-        `Asegúrate de importar Select, SelectTrigger, SelectContent, SelectValue y SelectItem desde el mismo archivo "../select", sin mezclar Radix ni otra versión del componente.`,
+        `Import Select, SelectTrigger, SelectContent, SelectValue, and SelectItem from the same "../select" module. Avoid mixing Radix primitives or different versions of this component.`,
     );
   }
 
@@ -328,10 +328,8 @@ function Select({
       if (!currentItem || currentItem.id !== id) return;
       if (currentItem.ref === node) return;
 
-      // Importante:
-      // Mutamos la referencia existente en vez de reemplazar el objeto.
-      // Así evitamos renders infinitos y también evitamos que context.items
-      // conserve una ref vieja del item oculto.
+      // Update the existing reference without replacing the object to prevent
+      // render loops and stale references to hidden items in context.items.
       currentItem.ref = node;
     },
     [],

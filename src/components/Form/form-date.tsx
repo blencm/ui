@@ -33,7 +33,6 @@ import {
 } from "./form-component";
 
 import { UiDate } from "../ui/ui-date";
-import { type ButtonVariant } from "../Button/button";
 
 import {
   DateFormatKey,
@@ -75,8 +74,8 @@ type CustomFormDateProps<
   endDate?: DateInputValue;
 
   /**
-   * date: guarda Date.
-   * string: guarda usando valueFormat.
+   * date: stores a Date.
+   * string: stores a string using valueFormat.
    */
   valueMode?: DateValueMode;
 
@@ -157,7 +156,7 @@ const FormDate = <
   defaultValue,
   label,
   requiredLabel,
-  placeholder = "Seleccione una fecha",
+  placeholder = "Select a date",
   disabled,
   invalid,
 

@@ -20,15 +20,6 @@ export default function MenubarDemoPage() {
       undo: "Undo",
       redo: "Redo",
     },
-    es: {
-      file: "Archivo",
-      new: "Nuevo",
-      open: "Abrir",
-      exit: "Salir",
-      edit: "Editar",
-      undo: "Deshacer",
-      redo: "Rehacer",
-    },
   });
 
   const code = `import {

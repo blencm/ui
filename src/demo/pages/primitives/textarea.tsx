@@ -5,7 +5,6 @@ import { DemoPage, DemoPreview } from "../../layout/DemoPage";
 export default function TextareaDemoPage() {
   const t = useCopy({
     en: { placeholder: "Write a note..." },
-    es: { placeholder: "Escribe una nota..." },
   });
 
   const code = `import { Textarea } from '@blencm/ui';

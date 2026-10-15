@@ -16,12 +16,6 @@ export default function FormCheckboxDemoPage() {
       acceptDescription: "This field is required to continue.",
       submit: "Submit",
     },
-    es: {
-      mustAccept: "Debes aceptar los términos",
-      accept: "Acepto los términos",
-      acceptDescription: "Este campo es obligatorio para continuar.",
-      submit: "Enviar",
-    },
   });
 
   const schema = z.object({

@@ -10,12 +10,6 @@ export default function SeparatorDemoPage() {
       docs: "Docs",
       source: "Source",
     },
-    es: {
-      subtitle: "Librería de componentes",
-      blog: "Blog",
-      docs: "Docs",
-      source: "Source",
-    },
   });
 
   const code = `import { Separator } from '@blencm/ui';
